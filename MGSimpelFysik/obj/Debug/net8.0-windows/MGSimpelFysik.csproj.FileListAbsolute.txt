@@ -28,3 +28,4 @@ C:\Users\rivne\source\repos\MGSimpelFysik\MGSimpelFysik\obj\Debug\net8.0-windows
 C:\Users\rivne\source\repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\8 dirt.xnb
 C:\Users\rivne\source\repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\dungeon.xnb
 C:\Users\rivne\source\repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\goomba.xnb
+C:\Users\rivne\source\repos\MGSimpelFysik\MGSimpelFysik\obj\Debug\net8.0-windows\MGSimpelFysik.sourcelink.json

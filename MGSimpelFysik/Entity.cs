@@ -43,8 +43,8 @@ namespace MGSimpelFysik
     }
     public class PhysicalEntity : Entity
     {
-        public Vector2 velocity = Vector2.Zero;
-        public Vector2 gravity = new Vector2(0, 2);
+        public Vector2 velocity = new Vector2(1f, 1f)*0.1f;
+        public Vector2 gravity = new Vector2(0, 0);
         float collisionradious = 10;
         public PhysicalEntity(Texture2D texture, float collisionradious = 10) : base(texture)
         {
@@ -58,9 +58,13 @@ namespace MGSimpelFysik
 
         public void Update(GameTime gameTime)
         {
-            velocity += gravity * gameTime.ElapsedGameTime.Milliseconds * 60f;
-            position += velocity * gameTime.ElapsedGameTime.Milliseconds * 60f;
             
+        }
+        public void PhysicsUpdate(GameTime gameTime)
+        {
+            velocity += gravity * gameTime.ElapsedGameTime.Milliseconds;
+            position += velocity * gameTime.ElapsedGameTime.Milliseconds;
+
         }
     }
 }

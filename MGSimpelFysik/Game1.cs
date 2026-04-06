@@ -24,6 +24,7 @@ namespace MGSimpelFysik
         private AnimatedSprite goombaAnim;
         private PhysicalEntity goomba;
         private Tilemap tilemap;
+        private Physics physicsWorld;
 
         public Game1()
         {
@@ -45,6 +46,8 @@ namespace MGSimpelFysik
             goomba = new PhysicalEntity(goombaTexture, animatedSprite: goombaAnim, position: new Vector2(300,300), scale: 4);
             goomba.origin = new Vector2(8, 12);
             tilemap = new Tilemap(tileSetTexture, 8);
+            physicsWorld = new Physics(windowWidth, windowHeight, tilemap);
+            physicsWorld.entities.Add(goomba);
         }
 
         protected override void LoadContent()
@@ -65,9 +68,6 @@ namespace MGSimpelFysik
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            goombaAnim.Update(gameTime);
-           
-            
             KeyboardState keyboardState = Keyboard.GetState();
             
             if (keyboardState.IsKeyDown(Keys.Space) && previousKeyboardState.IsKeyUp(Keys.Space))
@@ -75,6 +75,9 @@ namespace MGSimpelFysik
                 LevelHandler.SetTilesFromImage(GraphicsDevice, tilemap);
                 
             }
+
+            goombaAnim.Update(gameTime);
+            physicsWorld.Update(gameTime);
 
             previousKeyboardState = keyboardState;
             base.Update(gameTime);
