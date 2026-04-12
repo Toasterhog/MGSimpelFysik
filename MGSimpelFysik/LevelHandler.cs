@@ -9,16 +9,17 @@ namespace MGSimpelFysik
 {
     public class LevelHandler
     {
-        public static Texture2D FallBackTexture;
+        public Texture2D fallBackTexture;
+        private Tilemap tilemap;
         //private Tilemap tilemap;
         public LevelHandler(Tilemap tilemap, Texture2D fallBackTexture) //_tilemap or Tilemap
         {
-            //this.tilemap = tilemap;
-            FallBackTexture = fallBackTexture;
+            this.fallBackTexture = fallBackTexture;
+            this.tilemap = tilemap;
         }
 
 
-        public static Texture2D GetLevelImage(GraphicsDevice GD) //todo maybe be able to load multiple images/levels
+        public Texture2D GetLevelImage(GraphicsDevice GD) //todo maybe be able to load multiple images/levels
         {
             try
             {
@@ -48,9 +49,9 @@ namespace MGSimpelFysik
             return null;
         }
 
-        public static void SetTilesFromImage(GraphicsDevice GD, Tilemap tilemap)
+        public void SetTilesFromImage(GraphicsDevice GD, Tilemap tilemap)
         {
-            Texture2D tileMapTexture = GetLevelImage(GD) ?? FallBackTexture;
+            Texture2D tileMapTexture = GetLevelImage(GD) ?? fallBackTexture;
             if (tileMapTexture == null) { Debug.WriteLine("LevelHandler cannot find image and has no falbacktexture"); return; }
             Color[] colorData = new Color[tileMapTexture.Width * tileMapTexture.Height];
             tileMapTexture.GetData<Color>(colorData);
@@ -67,9 +68,9 @@ namespace MGSimpelFysik
             tilemap.SetTiles(tempTiles);
         }
 
-        private static int ColorToTileType(Color color)
+        private int ColorToTileType(Color color)
         {
-            return color.R < 128 ? 0 : 1;
+            return color.R < 128 ? 0 : -1;
         }
     }
 }

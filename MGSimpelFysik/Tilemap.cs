@@ -33,9 +33,9 @@ namespace MGSimpelFysik
             Point coord = PosToTile(pos);
             return GetTileType(coord);
         }
-        public int GetTileType(Point coord)
+        public int GetTileType(Point coord) //should wrap
         {
-            if (coord.X < 0 || coord.Y < 0 || coord.X >= tiles.GetLength(0) || coord.Y >= tiles.GetLength(1)) return 0;
+            if (coord.X < 0 || coord.Y < 0 || coord.X >= tiles.GetLength(0) || coord.Y >= tiles.GetLength(1)) return -1;
             return tiles[coord.X, coord.Y];
         }
         public void SetTiles(int[,] newTiles)

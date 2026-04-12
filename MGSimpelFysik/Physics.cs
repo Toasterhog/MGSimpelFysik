@@ -24,18 +24,10 @@ namespace MGSimpelFysik
         {
             foreach (PhysicalEntity entity in entities)
             {
-                entity.Update(gameTime);
+                entity.PhysicsUpdate(gameTime);
 
-                if (tilemap.GetTileType(entity.position) != 0)
-                {
-                    entity.velocity.Y -= 0.01f;
-                }
-                else
-                {
-                    entity.velocity  .Y += 0.01f;
-                }
-
-                    float posX = entity.position.X;
+             
+                float posX = entity.position.X;
                 if (posX < 0 || posX > gameWindowWidth)
                 {
                     entity.position.X = posX % gameWindowWidth;

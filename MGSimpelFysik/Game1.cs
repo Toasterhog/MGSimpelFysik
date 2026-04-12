@@ -21,6 +21,7 @@ namespace MGSimpelFysik
         private Texture2D dungeonTexture;
         private Texture2D goombaTexture;
 
+        private LevelHandler levelHandler;
         private AnimatedSprite goombaAnim;
         private PhysicalEntity goomba;
         private Tilemap tilemap;
@@ -39,15 +40,15 @@ namespace MGSimpelFysik
         {
             // TODO: Add your initialization logic here
             
-
             base.Initialize(); //base.init calls LoadContent
 
-            goombaAnim = new AnimatedSprite(goombaTexture, 16);
-            goomba = new PhysicalEntity(goombaTexture, animatedSprite: goombaAnim, position: new Vector2(300,300), scale: 4);
-            goomba.origin = new Vector2(8, 12);
             tilemap = new Tilemap(tileSetTexture, 8);
+            goombaAnim = new AnimatedSprite(goombaTexture, 16);
+            goomba = new PhysicalEntity(tilemap, goombaTexture, animatedSprite: goombaAnim, position: new Vector2(300,300), scale: 4);
+            goomba.origin = new Vector2(8, 12);
             physicsWorld = new Physics(windowWidth, windowHeight, tilemap);
             physicsWorld.entities.Add(goomba);
+            levelHandler = new LevelHandler(tilemap, dungeonTexture);
         }
 
         protected override void LoadContent()
@@ -72,9 +73,11 @@ namespace MGSimpelFysik
             
             if (keyboardState.IsKeyDown(Keys.Space) && previousKeyboardState.IsKeyUp(Keys.Space))
             {
-                LevelHandler.SetTilesFromImage(GraphicsDevice, tilemap);
+                levelHandler.SetTilesFromImage(GraphicsDevice, tilemap);
                 
             }
+            MouseState ms = Mouse.GetState();
+            if(ms.LeftButton == ButtonState.Pressed) { goomba.position = new Vector2( ms.Position.X, ms.Position.Y); }
 
             goombaAnim.Update(gameTime);
             physicsWorld.Update(gameTime);

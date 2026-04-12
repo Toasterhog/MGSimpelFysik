@@ -4,9 +4,9 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/rivne/source/repos/MGSimpelFysik/MGSimpelFysik/Content/8 dirt.png</File>
-    <File>C:/Users/rivne/source/repos/MGSimpelFysik/MGSimpelFysik/Content/dungeon.png</File>
-    <File>C:/Users/rivne/source/repos/MGSimpelFysik/MGSimpelFysik/Content/goomba.png</File>
+    <File>C:/Users/Ruben/source/repos/MGSimpelFysik/MGSimpelFysik/Content/8 dirt.png</File>
+    <File>C:/Users/Ruben/source/repos/MGSimpelFysik/MGSimpelFysik/Content/dungeon.png</File>
+    <File>C:/Users/Ruben/source/repos/MGSimpelFysik/MGSimpelFysik/Content/goomba.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
