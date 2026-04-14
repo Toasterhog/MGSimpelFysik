@@ -27,15 +27,23 @@ namespace MGSimpelFysik
                 entity.PhysicsUpdate(gameTime);
 
              
-                float posX = entity.position.X;
-                if (posX < 0 || posX > gameWindowWidth)
+                float posX = entity.position.X; //wrapa
+                if (posX > gameWindowWidth)
                 {
                     entity.position.X = posX % gameWindowWidth;
                 }
+                else if (posX < 0)
+                {
+                    entity.position.X = (posX + 5 * gameWindowWidth) % gameWindowWidth; // 5 = godtyckligt, räcker med 1
+                }
                 float posY = entity.position.Y;
-                if (posY < 0 || posY > gameWindowHeight)
+                if (posY > gameWindowHeight)
                 {
                     entity.position.Y = posY % gameWindowHeight;
+                }
+                else if (posY < 0)
+                {
+                    entity.position.Y = (posY + 5 * gameWindowHeight) % gameWindowHeight;
                 }
             }
         }

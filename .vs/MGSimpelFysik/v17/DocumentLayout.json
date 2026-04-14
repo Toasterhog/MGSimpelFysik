@@ -3,32 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\ruben\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\ruben\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\levelhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\levelhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\ruben\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\ruben\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\tilemap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\tilemap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\ruben\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\physics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\physics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\ruben\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\animatablesprite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\animatablesprite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\ruben\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\levelhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\levelhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\ruben\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\tilemap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\tilemap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\ruben\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\input.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\input.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\ruben\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\ruben\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\physics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\physics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,82 +38,82 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "Input.cs",
               "DocumentMoniker": "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\Input.cs",
               "RelativeDocumentMoniker": "MGSimpelFysik\\Input.cs",
               "ToolTip": "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\Input.cs",
               "RelativeToolTip": "MGSimpelFysik\\Input.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA4AAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABgAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-06T17:40:35.284Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "LevelHandler.cs",
               "DocumentMoniker": "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\LevelHandler.cs",
               "RelativeDocumentMoniker": "MGSimpelFysik\\LevelHandler.cs",
               "ToolTip": "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\LevelHandler.cs",
               "RelativeToolTip": "MGSimpelFysik\\LevelHandler.cs",
-              "ViewState": "AgIAADsAAAAAAAAAAAAgwEgAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAADwv2cAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-04T22:13:49.968Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Tilemap.cs",
               "DocumentMoniker": "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\Tilemap.cs",
               "RelativeDocumentMoniker": "MGSimpelFysik\\Tilemap.cs",
               "ToolTip": "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\Tilemap.cs",
               "RelativeToolTip": "MGSimpelFysik\\Tilemap.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAA4wCUAAAB3AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEEAAACVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-04T22:13:38.887Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "Physics.cs",
               "DocumentMoniker": "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\Physics.cs",
               "RelativeDocumentMoniker": "MGSimpelFysik\\Physics.cs",
               "ToolTip": "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\Physics.cs",
               "RelativeToolTip": "MGSimpelFysik\\Physics.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAiwBkAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAABQAAAAAAAAAAADwvx0AAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-04T22:06:40.766Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "Entity.cs",
               "DocumentMoniker": "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\Entity.cs",
               "RelativeDocumentMoniker": "MGSimpelFysik\\Entity.cs",
               "ToolTip": "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\Entity.cs",
               "RelativeToolTip": "MGSimpelFysik\\Entity.cs",
-              "ViewState": "AgIAAEgAAAAAAAAAAAAiwFcAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAACsAAAAAAAAAAAAUwDQAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-04T20:27:45.652Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "AnimatableSprite.cs",
               "DocumentMoniker": "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\AnimatableSprite.cs",
               "RelativeDocumentMoniker": "MGSimpelFysik\\AnimatableSprite.cs",
               "ToolTip": "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\AnimatableSprite.cs",
               "RelativeToolTip": "MGSimpelFysik\\AnimatableSprite.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAYwCYAAABgAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAwBQAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-04T10:16:28.23Z",
               "EditorCaption": ""
@@ -126,7 +126,7 @@
               "RelativeDocumentMoniker": "MGSimpelFysik\\Game1.cs",
               "ToolTip": "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\Game1.cs",
               "RelativeToolTip": "MGSimpelFysik\\Game1.cs",
-              "ViewState": "AgIAAEoAAAAAAAAAAAAmwE8AAAB2AAAAAAAAAA==",
+              "ViewState": "AgIAADQAAAAAAAAAAAAUwCAAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-03T21:04:24.333Z",
               "EditorCaption": ""

@@ -12,6 +12,7 @@ namespace MGSimpelFysik
         private int tileSize = 50;
         private Texture2D tileset;
         private Rectangle[] sourceRects;
+        public AnimatedSprite goalsprite;
 
         public Tilemap(Texture2D _tileSet, int? _tileSetSourceSize = null)
         {
@@ -56,7 +57,14 @@ namespace MGSimpelFysik
                     int tile = tiles[x, y];
                     if (tile >= 0 && tile < sourceRects.Length)
                     {
-                        spriteBatch.Draw(tileset, new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), sourceRects[tile], Color.White);
+                        if(tile == 3)
+                        {
+                            spriteBatch.Draw(goalsprite.texture, new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), goalsprite.CurrentTextureRegion, Color.White);
+                        }
+                        else
+                        {
+                            spriteBatch.Draw(tileset, new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), sourceRects[tile], Color.White);
+                        }
                     }
                 }
             }

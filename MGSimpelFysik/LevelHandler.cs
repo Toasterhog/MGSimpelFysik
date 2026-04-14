@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection.Metadata;
+using System.Text.RegularExpressions;
 
 namespace MGSimpelFysik
 {
@@ -11,7 +12,16 @@ namespace MGSimpelFysik
     {
         public Texture2D fallBackTexture;
         private Tilemap tilemap;
-        //private Tilemap tilemap;
+        private readonly (int ID, Color Col)[] Palette = new[]{
+            ( -1, Color.Black ),
+            (  0, Color.Gray ),
+            (  0, Color.Brown ),
+            (  1, Color.White ),
+            (  1, Color.LightGray ),
+            (  2, Color.Red ),
+            (  3, Color.Blue ),
+            (  4, Color.Green )};
+
         public LevelHandler(Tilemap tilemap, Texture2D fallBackTexture) //_tilemap or Tilemap
         {
             this.fallBackTexture = fallBackTexture;
@@ -58,8 +68,8 @@ namespace MGSimpelFysik
 
             Point tilemapSize = tilemap.GetTileMapSize();
             int[,] tempTiles = new int[tilemapSize.X, tilemapSize.Y];
-             for (int y = 0; y < tilemapSize.Y; y++)
-                {
+            for (int y = 0; y < tilemapSize.Y; y++)
+            {
                 for (int x = 0; x < tilemapSize.X; x++)
                 {
                     tempTiles[x, y] = ColorToTileType(colorData[x + tilemapSize.X * y]);
@@ -68,9 +78,47 @@ namespace MGSimpelFysik
             tilemap.SetTiles(tempTiles);
         }
 
+        //private int ColorToTileType(Color color)
+        //{
+        //    //return color.R < 128 ? 0 : -1;
+        //    if(color.G > 200) return -1;
+        //    if (color.R + color.B < 10) return 0;
+        //    if (color.B  > color.G + color.R) return 1;
+        //    if (color.R  > color.B + color.G) return 2;
+        //    return -1;
+        //}
+
         private int ColorToTileType(Color color)
         {
-            return color.R < 128 ? 0 : -1;
+            if (color.A < 255) return -1;
+            else
+            {
+                int sum = color.R + color.G + color.B;
+                if (sum == 0) return -1;
+                if (sum > 750) return 1;
+            }
+            
+
+            int closestID = -1;
+            float minDistance = float.MaxValue;
+
+            for (int i = 0; i < Palette.Length; i++)
+            {
+                float dr = color.R - Palette[i].Col.R;
+                float dg = color.G - Palette[i].Col.G;
+                float db = color.B - Palette[i].Col.B;
+                float distanceSquared = (dr * dr) + (dg * dg) + (db * db);
+
+                if (distanceSquared < minDistance)
+                {
+                    minDistance = distanceSquared;
+                    closestID = Palette[i].ID;
+                }
+            }
+            return closestID;
         }
+
+
+
     }
 }

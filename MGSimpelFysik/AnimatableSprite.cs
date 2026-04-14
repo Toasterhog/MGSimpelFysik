@@ -11,6 +11,7 @@ namespace MGSimpelFysik
         private Rectangle[] textureRegions;
         private TimeSpan elapsed = TimeSpan.Zero;
         private TimeSpan delay = TimeSpan.FromMilliseconds(200);
+        public double Delay { get { return delay.TotalMilliseconds; } set { delay = TimeSpan.FromMilliseconds(value); } }
         public bool Playing = true;
         private int frame = 0;
         public int Frame {  

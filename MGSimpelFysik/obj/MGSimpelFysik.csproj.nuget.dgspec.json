@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\MGSimpelFysik.csproj": {}
+    "C:\\Users\\Ruben\\Source\\Repos\\MGSimpelFysik\\MGSimpelFysik\\MGSimpelFysik.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\MGSimpelFysik.csproj": {
+    "C:\\Users\\Ruben\\Source\\Repos\\MGSimpelFysik\\MGSimpelFysik\\MGSimpelFysik.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\MGSimpelFysik.csproj",
+        "projectUniqueName": "C:\\Users\\Ruben\\Source\\Repos\\MGSimpelFysik\\MGSimpelFysik\\MGSimpelFysik.csproj",
         "projectName": "MGSimpelFysik",
-        "projectPath": "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\MGSimpelFysik.csproj",
+        "projectPath": "C:\\Users\\Ruben\\Source\\Repos\\MGSimpelFysik\\MGSimpelFysik\\MGSimpelFysik.csproj",
         "packagesPath": "C:\\Users\\Ruben\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ruben\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\obj\\",
+        "outputPath": "C:\\Users\\Ruben\\Source\\Repos\\MGSimpelFysik\\MGSimpelFysik\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ruben\\AppData\\Roaming\\NuGet\\NuGet.Config"

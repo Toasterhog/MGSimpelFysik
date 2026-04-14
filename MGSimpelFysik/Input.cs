@@ -6,17 +6,24 @@ namespace MGSimpelFysik
 {
     public class Input
     {
-        private KeyboardState previousKeyboardState;
-
-        public Input() { }
-
-        public void Update(GameTime gameTime)
-        {
-            KeyboardState currentKeyboardSate = Keyboard.GetState();
+        //private Game1 game { get;  init; }
+        //private KeyboardState prevks;
+        //private MouseState prevms;
 
 
-            previousKeyboardState = currentKeyboardSate;
-        }
+        //public Input(Game1 g) { game = g; }
+
+        //public void Update(GameTime gameTime)
+        //{
+        //    KeyboardState ks = Keyboard.GetState();
+        //    MouseState ms = Mouse.GetState();
+
+           
+
+
+        //    prevks = ks;
+        //    prevms = ms;
+        //}
 
     }
 }

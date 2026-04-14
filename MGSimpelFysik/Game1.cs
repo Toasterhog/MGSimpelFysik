@@ -14,18 +14,23 @@ namespace MGSimpelFysik
 
         private int windowWidth = 1000;
         private int windowHeight = 600;
+        
+        private KeyboardState prevks;
+        private MouseState prevms;
 
         private Texture2D dirt;
-        private KeyboardState previousKeyboardState;
         private Texture2D tileSetTexture;
         private Texture2D dungeonTexture;
         private Texture2D goombaTexture;
+        private Texture2D goalTexture;
 
         private LevelHandler levelHandler;
         private AnimatedSprite goombaAnim;
+        private AnimatedSprite goalAnim;
         private PhysicalEntity goomba;
         private Tilemap tilemap;
         private Physics physicsWorld;
+        
 
         public Game1()
         {
@@ -39,12 +44,22 @@ namespace MGSimpelFysik
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            //sämsta sättet att göra bättre MOD() som repeterar som jag vill :(
+            //int n = 4;
+            //for (int i = -10; i < 10; i++) {
+            //    int res = i < 0 ? (n -1 + ((i+1) % n)) : i % n;
+            //    Debug.WriteLine("i " + i + " i%n "+ (i%n) + " res " + res );
+            //}
             
             base.Initialize(); //base.init calls LoadContent
 
-            tilemap = new Tilemap(tileSetTexture, 8);
+            goalAnim = new AnimatedSprite(goalTexture, 8);
+            goalAnim.Delay = 120;
+            tilemap = new Tilemap(tileSetTexture,8);
+            tilemap.goalsprite = goalAnim;
             goombaAnim = new AnimatedSprite(goombaTexture, 16);
-            goomba = new PhysicalEntity(tilemap, goombaTexture, animatedSprite: goombaAnim, position: new Vector2(300,300), scale: 4);
+            goomba = new PhysicalEntity(tilemap, goombaTexture, 16, animatedSprite: goombaAnim, position: new Vector2(300,300), scale: 4);
             goomba.origin = new Vector2(8, 12);
             physicsWorld = new Physics(windowWidth, windowHeight, tilemap);
             physicsWorld.entities.Add(goomba);
@@ -57,11 +72,11 @@ namespace MGSimpelFysik
 
             // TODO: use this.Content to load your game content here
             dirt = Content.Load<Texture2D>("8 dirt");
-            tileSetTexture = Content.Load<Texture2D>("8 dirt");
+            tileSetTexture = Content.Load<Texture2D>("tilemap_8px");
             dungeonTexture = Content.Load<Texture2D>("dungeon");
             goombaTexture = Content.Load<Texture2D>("goomba");
+            goalTexture = Content.Load<Texture2D>("goalblob_8px");
 
-           
         }
 
         protected override void Update(GameTime gameTime)
@@ -69,20 +84,12 @@ namespace MGSimpelFysik
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            KeyboardState keyboardState = Keyboard.GetState();
+            InputUppdate();
             
-            if (keyboardState.IsKeyDown(Keys.Space) && previousKeyboardState.IsKeyUp(Keys.Space))
-            {
-                levelHandler.SetTilesFromImage(GraphicsDevice, tilemap);
-                
-            }
-            MouseState ms = Mouse.GetState();
-            if(ms.LeftButton == ButtonState.Pressed) { goomba.position = new Vector2( ms.Position.X, ms.Position.Y); }
-
             goombaAnim.Update(gameTime);
+            goalAnim.Update(gameTime);
             physicsWorld.Update(gameTime);
 
-            previousKeyboardState = keyboardState;
             base.Update(gameTime);
         }
 
@@ -98,7 +105,32 @@ namespace MGSimpelFysik
             base.Draw(gameTime);
         }
 
-        
+
+        private void InputUppdate()
+        {
+            KeyboardState ks = Keyboard.GetState();
+            MouseState ms = Mouse.GetState();
+            
+            if (ks.IsKeyDown(Keys.Space) && prevks.IsKeyUp(Keys.Space))
+            {
+                levelHandler.SetTilesFromImage(GraphicsDevice, tilemap);
+                
+            }
+
+            if (ms.LeftButton == ButtonState.Pressed)
+            {
+                goomba.position = new Vector2(ms.Position.X, ms.Position.Y);
+            }
+            else if (prevms.LeftButton == ButtonState.Pressed)
+            {
+                goomba.position = new Vector2(ms.Position.X, ms.Position.Y);
+                goomba.velocity = new Vector2(ms.Position.X, ms.Position.Y) - new Vector2(prevms.Position.X, prevms.Position.Y);
+                goomba.velocity *= 100f;
+            }
+
+            prevks = ks;
+            prevms = ms;
+        }
     }
 
     public static class RandomInfo

@@ -16,7 +16,7 @@ namespace MGSimpelFysik
         public SpriteEffects spriteEffects = SpriteEffects.None;
         public float layerDepth = 0;
 
-        public Point debug_colllision_tile;
+        
         public Entity(Texture2D texture, Vector2? position = null, float rotation = 0, float scale = 1, AnimatedSprite animatedSprite = null, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
         {
             this.texture = texture;
@@ -40,10 +40,6 @@ namespace MGSimpelFysik
             {
                 spriteBatch.Draw(texture, position, null, Color.White, rotation, new Vector2(texture.Width / 2, texture.Height / 2), scale, spriteEffects, layerDepth);
             }
-            if(debug_colllision_tile.X != -1238)
-            {
-                spriteBatch.Draw(texture, new Rectangle(debug_colllision_tile.X*50, debug_colllision_tile.Y*50, 50, 50), Color.PaleVioletRed);
-            }
         }
     }
     public class PhysicalEntity : Entity
@@ -53,7 +49,12 @@ namespace MGSimpelFysik
         float collisionradious = 10;
         private Tilemap tilemap;
         float tempBounceSpeed = 100f;
-        private bool was_in_solid = false;
+        private enum CollisionShapeType { circle, square }; //meh datatyp
+        CollisionShapeType colltype = CollisionShapeType.circle;
+        float bounciness = 0.4f;
+        float slidyness = 0.95f;
+        float simulationSpeed = 0.8f;
+
         public PhysicalEntity(Tilemap tilemap, Texture2D texture, float collisionradious = 10) : base(texture)
         {
             this.collisionradious = collisionradious;
@@ -72,25 +73,20 @@ namespace MGSimpelFysik
         }
         public void PhysicsUpdate(GameTime gameTime)
         {
-            float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+            float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds * simulationSpeed / 1000;
             const float tileSize = 50;
-            //debug_colllision_tile.X = -123;
 
             velocity += gravity * delta;
-             velocity = new Vector2(MathF.Min(MathF.Max(velocity.X,-collisionradious/delta),collisionradious / delta), MathF.Min(MathF.Max(velocity.Y, -collisionradious / delta), collisionradious / delta));
+            velocity = new Vector2(MathF.Min(MathF.Max(velocity.X,-collisionradious/delta),collisionradious / delta), MathF.Min(MathF.Max(velocity.Y, -collisionradious / delta), collisionradious / delta));
             position += velocity * delta;
 
             Point tpos = tilemap.PosToTile(position);
             if (tilemap.GetTileType(new Point(tpos.X, tpos.Y )) >= 0) //inside solid reaction
             { 
                 velocity = velocity * 0.9f;
-                if (was_in_solid == false)
-                {
-                    Debug.WriteLine($"pos {position} tpos {tpos} vel {velocity} delta-second {delta}");
-                }
-                was_in_solid = true;
                 return; 
-            } was_in_solid = false;
+            } 
+            
 
             if (tilemap.GetTileType(new Point(tpos.X, tpos.Y +1)) >= 0) //down
             {
@@ -98,8 +94,7 @@ namespace MGSimpelFysik
                 if (position.Y > boundry)
                 {
                     position.Y = boundry;
-                    velocity.Y = MathF.Min(velocity.Y, -velocity.Y*0.6f);
-                    debug_colllision_tile = new Point(tpos.X, tpos.Y + 1); //debug coll
+                    ReactVelocity(new Vector2(0, -1)); //velocity.Y = MathF.Min(velocity.Y, -velocity.Y*0.6f);
                 }
             }
             if (tilemap.GetTileType(new Point(tpos.X -1, tpos.Y)) >= 0) //left
@@ -108,7 +103,7 @@ namespace MGSimpelFysik
                 if (position.X < boundry)
                 {
                     position.X = boundry;
-                    velocity.X = MathF.Max(velocity.X, tempBounceSpeed);
+                    ReactVelocity(new Vector2(1, 0));  //velocity.X = MathF.Max(velocity.X, tempBounceSpeed);
                     
                 }
             }
@@ -118,7 +113,7 @@ namespace MGSimpelFysik
                 if (position.Y < boundry)
                 {
                     position.Y = boundry;
-                    velocity.Y = MathF.Max(velocity.Y, tempBounceSpeed);
+                    ReactVelocity(new Vector2(0, 1));  //velocity.Y = MathF.Max(velocity.Y, tempBounceSpeed);
                 }
             }
             if (tilemap.GetTileType(new Point(tpos.X + 1, tpos.Y)) >= 0) //right
@@ -127,15 +122,167 @@ namespace MGSimpelFysik
                 if (position.X > boundry)
                 {
                     position.X = boundry;
-                    velocity.X = MathF.Min(velocity.X, -tempBounceSpeed);
+                    ReactVelocity(new Vector2(-1, 0));  //velocity.X = MathF.Min(velocity.X, -tempBounceSpeed);
                 }
             }
 
+            
+            
 
+            if(colltype == CollisionShapeType.circle)
+            {
+                //AI
+                // Diagonal Collisions (Top-Left, Top-Right, Bottom-Left, Bottom-Right)
+                Point[] diagonals = { new Point(-1, -1), new Point(1, -1), new Point(-1, 1), new Point(1, 1) };
 
+                foreach (var dir in diagonals)
+                {
+                    if (tilemap.GetTileType(new Point(tpos.X + dir.X, tpos.Y + dir.Y)) >= 0)
+                    {
+                        // Calculate the specific corner of the tile we might be hitting
+                        Vector2 corner = new Vector2(
+                            (tpos.X + (dir.X < 0 ? 0 : 1)) * tileSize,
+                            (tpos.Y + (dir.Y < 0 ? 0 : 1)) * tileSize
+                        );
+
+                        Vector2 diff = position - corner;
+                        if (diff.Length() < collisionradious)
+                        {
+                            // Push out based on the normal from the corner
+                            Vector2 normal = Vector2.Normalize(diff);
+                            position = corner + normal * collisionradious;
+
+                            ReactVelocity(normal);
+                            // Reflect/Dampen velocity along the collision normal
+                            //float dot = Vector2.Dot(velocity, normal);
+                            //if (dot < 0)
+                            //{
+                            //    velocity -= normal * dot * 1.6f; // 0.6 bounce factor matching your axis logic
+                            //}
+                        }
+                    }
+                }
+
+            }
+            else if (colltype == CollisionShapeType.square)
+            {
+                // Define the 4 corners: (Tile Offset, Corner Multiplier, Normal Direction)
+                var corners = new[]
+                {
+                 new { Offset = new Point(-1, -1), Corner = new Vector2(0, 0), Norm = new Vector2(1, 1) },  // Top-Left
+                 new { Offset = new Point(1, -1),  Corner = new Vector2(1, 0), Norm = new Vector2(-1, 1) }, // Top-Right
+                 new { Offset = new Point(-1, 1),  Corner = new Vector2(0, 1), Norm = new Vector2(1, -1) }, // Bottom-Left
+                 new { Offset = new Point(1, 1),   Corner = new Vector2(1, 1), Norm = new Vector2(-1, -1) } // Bottom-Right
+                };
+
+                foreach (var c in corners)
+                {
+                    // 1. Check if diagonal is solid AND neighbors are empty (to prevent snagging on walls)
+                    bool diagonalSolid = tilemap.GetTileType(new Point(tpos.X + c.Offset.X, tpos.Y + c.Offset.Y)) >= 0;
+                    bool sideXEmpty = tilemap.GetTileType(new Point(tpos.X + c.Offset.X, tpos.Y)) < 0;
+                    bool sideYEmpty = tilemap.GetTileType(new Point(tpos.X, tpos.Y + c.Offset.Y)) < 0;
+
+                    if (diagonalSolid && sideXEmpty && sideYEmpty)
+                    {
+                        // 2. Calculate the specific corner point
+                        Vector2 cornerPos = new Vector2((tpos.X + c.Corner.X) * tileSize, (tpos.Y + c.Corner.Y) * tileSize);
+
+                        // 3. Calculate penetration (how deep the player square is past the corner)
+                        float distX = (c.Offset.X < 0) ? (cornerPos.X + collisionradious) - position.X : position.X - (cornerPos.X - collisionradious);
+                        float distY = (c.Offset.Y < 0) ? (cornerPos.Y + collisionradious) - position.Y : position.Y - (cornerPos.Y - collisionradious);
+
+                        // 4. If both are positive, we are overlapping the corner
+                        if (distX > 0 && distY > 0)
+                        {
+                            // Resolve along the shallower axis
+                            if (distX < distY)
+                            {
+                                position.X = (c.Offset.X < 0) ? cornerPos.X + collisionradious : cornerPos.X - collisionradious;
+                                ReactVelocity(new Vector2(c.Norm.X, 0)); // Horizontal push
+                            }
+                            else
+                            {
+                                position.Y = (c.Offset.Y < 0) ? cornerPos.Y + collisionradious : cornerPos.Y - collisionradious;
+                                ReactVelocity(new Vector2(0, c.Norm.Y)); // Vertical push
+                            }
+                        }
+                    }
+                }
+
+            }
+            else
+            {
+                //AI
+                // Square Bounding Box offsets
+                float left = position.X - collisionradious;
+                float right = position.X + collisionradious;
+                float top = position.Y - collisionradious;
+                float bottom = position.Y + collisionradious;
+
+                Point[] diagonals = { new Point(-1, -1), new Point(1, -1), new Point(-1, 1), new Point(1, 1) };
+
+                foreach (var dir in diagonals)
+                {
+                    // Only check diagonal if the two adjacent cardinal tiles are empty
+                    // This prevents jittering when sliding along a flat wall of tiles
+                    bool side1Solid = tilemap.GetTileType(new Point(tpos.X + dir.X, tpos.Y)) >= 0;
+                    bool side2Solid = tilemap.GetTileType(new Point(tpos.X, tpos.Y + dir.Y)) >= 0;
+
+                    if (!side1Solid && !side2Solid && tilemap.GetTileType(new Point(tpos.X + dir.X, tpos.Y + dir.Y)) >= 0)
+                    {
+                        float cornerX = (dir.X < 0 ? tpos.X : tpos.X + 1) * tileSize;
+                        float cornerY = (dir.Y < 0 ? tpos.Y : tpos.Y + 1) * tileSize;
+
+                        // Check if the square bounding box contains the corner point
+                        bool overlapX = (dir.X < 0) ? (left < cornerX) : (right > cornerX);
+                        bool overlapY = (dir.Y < 0) ? (top < cornerY) : (bottom > cornerY);
+
+                        if (overlapX && overlapY)
+                        {
+                            // Resolve along the shallower axis (Standard AABB resolution)
+                            float diffX = Math.Abs(position.X - cornerX);
+                            float diffY = Math.Abs(position.Y - cornerY);
+
+                            if (collisionradious - diffX < collisionradious - diffY)
+                            {
+                                position.X = cornerX + (dir.X < 0 ? collisionradious : -collisionradious);
+                                velocity.X = Math.Min(velocity.X, -velocity.X * 0.6f);
+                            }
+                            else
+                            {
+                                position.Y = cornerY + (dir.Y < 0 ? collisionradious : -collisionradious);
+                                velocity.Y = Math.Min(velocity.Y, -velocity.Y * 0.6f);
+                            }
+                        }
+                    }
+                }
+            }
+
+            
 
 
 
         }
+       
+        
+        private void ReactVelocity(Vector2 normal)
+        {
+            float dot = Vector2.Dot(velocity, normal);
+            if (dot > 0) return;
+            Vector2 velNorm = normal * -dot * bounciness;
+            Vector2 velPara = (velocity - normal*dot) * slidyness;
+            velocity = velNorm + velPara;
+
+        }
+        private void ReactVelocityExtraParam(Vector2 normal, float bounce2, float slidy2)
+        {
+            float dot = Vector2.Dot(velocity, normal);
+            if (dot > 0) return;
+            Vector2 velNorm = normal * -dot * (bounciness / 3 + bounce2 * 2 / 3);
+            Vector2 velPara = (velocity - normal*dot) * (slidyness / 3 + slidy2 * 2 / 3);
+            velocity = velNorm + velPara;
+
+        }
+
     }
 }
