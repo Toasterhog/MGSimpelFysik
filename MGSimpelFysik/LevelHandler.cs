@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace MGSimpelFysik
 {
-    public class LevelHandler
+    public class LevelBuilder
     {
         public Texture2D fallBackTexture;
         private Tilemap tilemap;
@@ -22,7 +22,7 @@ namespace MGSimpelFysik
             (  3, Color.Blue ),
             (  4, Color.Green )};
 
-        public LevelHandler(Tilemap tilemap, Texture2D fallBackTexture) //_tilemap or Tilemap
+        public LevelBuilder(Tilemap tilemap, Texture2D fallBackTexture)
         {
             this.fallBackTexture = fallBackTexture;
             this.tilemap = tilemap;
@@ -62,7 +62,7 @@ namespace MGSimpelFysik
         public void SetTilesFromImage(GraphicsDevice GD, Tilemap tilemap)
         {
             Texture2D tileMapTexture = GetLevelImage(GD) ?? fallBackTexture;
-            if (tileMapTexture == null) { Debug.WriteLine("LevelHandler cannot find image and has no falbacktexture"); return; }
+            if (tileMapTexture == null) { Debug.WriteLine("LevelBuilder cannot find image and has no falbacktexture"); return; }
             Color[] colorData = new Color[tileMapTexture.Width * tileMapTexture.Height];
             tileMapTexture.GetData<Color>(colorData);
 

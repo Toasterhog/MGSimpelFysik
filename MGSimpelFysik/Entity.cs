@@ -17,7 +17,7 @@ namespace MGSimpelFysik
         public float layerDepth = 0;
 
         
-        public Entity(Texture2D texture, Vector2? position = null, float rotation = 0, float scale = 1, AnimatedSprite animatedSprite = null, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
+        public Entity(Texture2D texture = null, AnimatedSprite animatedSprite = null, Vector2? position = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
         {
             this.texture = texture;
             this.position = position ?? new Vector2(50, 50);
@@ -26,7 +26,9 @@ namespace MGSimpelFysik
             this.animatedSprite = animatedSprite;
             this.spriteEffects = spriteEffects;
             this.layerDepth = layerDepth;
-            this.origin = animatedSprite != null ? new Vector2(animatedSprite.CurrentTextureRegion.Width, animatedSprite.CurrentTextureRegion.Width)/2f : new Vector2(texture.Width, texture.Width)/2f;
+            origin = animatedSprite != null ? new Vector2(animatedSprite.CurrentTextureRegion.Width, animatedSprite.CurrentTextureRegion.Height) / 2f :
+            texture != null ? new Vector2(texture.Width, texture.Width) / 2f : 
+            Vector2.Zero;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -53,15 +55,15 @@ namespace MGSimpelFysik
         CollisionShapeType colltype = CollisionShapeType.circle;
         float bounciness = 0.4f;
         float slidyness = 0.95f;
-        float simulationSpeed = 0.8f;
+        float simulationSpeed = 1f;
 
-        public PhysicalEntity(Tilemap tilemap, Texture2D texture, float collisionradious = 10) : base(texture)
+        public PhysicalEntity(Tilemap tilemap, float collisionradious = 10) : base()
         {
             this.collisionradious = collisionradious;
             this.tilemap = tilemap;
         }
-        public PhysicalEntity(Tilemap tilemap, Texture2D texture, float collisionradious = 10, Vector2? position = null, float rotation = 0, float scale = 1, AnimatedSprite animatedSprite = null, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
-        : base(texture, position, rotation, scale, animatedSprite, spriteEffects, layerDepth)
+        public PhysicalEntity(Tilemap tilemap, Texture2D texture = null, AnimatedSprite animatedSprite = null, float collisionradious = 10, Vector2? position = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
+        : base(texture, animatedSprite, position, rotation, scale,  spriteEffects, layerDepth)
         {
             this.collisionradious = collisionradious; //får inte vara mer än 25 (collrad/2)
             this.tilemap = tilemap;

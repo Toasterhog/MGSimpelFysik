@@ -24,7 +24,7 @@ namespace MGSimpelFysik
         private Texture2D goombaTexture;
         private Texture2D goalTexture;
 
-        private LevelHandler levelHandler;
+        private LevelBuilder levelBuilder;
         private AnimatedSprite goombaAnim;
         private AnimatedSprite goalAnim;
         private PhysicalEntity goomba;
@@ -41,16 +41,20 @@ namespace MGSimpelFysik
             _graphics.PreferredBackBufferHeight = windowHeight;
         }
 
+        protected override void LoadContent()
+        {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            dirt = Content.Load<Texture2D>("8 dirt");
+            tileSetTexture = Content.Load<Texture2D>("tilemap_8px");
+            dungeonTexture = Content.Load<Texture2D>("dungeon");
+            goombaTexture = Content.Load<Texture2D>("goomba");
+            goalTexture = Content.Load<Texture2D>("goalblob_8px");
+
+        }
+
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
-            //sämsta sättet att göra bättre MOD() som repeterar som jag vill :(
-            //int n = 4;
-            //for (int i = -10; i < 10; i++) {
-            //    int res = i < 0 ? (n -1 + ((i+1) % n)) : i % n;
-            //    Debug.WriteLine("i " + i + " i%n "+ (i%n) + " res " + res );
-            //}
             
             base.Initialize(); //base.init calls LoadContent
 
@@ -59,25 +63,14 @@ namespace MGSimpelFysik
             tilemap = new Tilemap(tileSetTexture,8);
             tilemap.goalsprite = goalAnim;
             goombaAnim = new AnimatedSprite(goombaTexture, 16);
-            goomba = new PhysicalEntity(tilemap, goombaTexture, 16, animatedSprite: goombaAnim, position: new Vector2(300,300), scale: 4);
+            goomba = new PhysicalEntity(tilemap, null, goombaAnim, 16, position: new Vector2(300,300), scale: 4);
             goomba.origin = new Vector2(8, 12);
             physicsWorld = new Physics(windowWidth, windowHeight, tilemap);
             physicsWorld.entities.Add(goomba);
-            levelHandler = new LevelHandler(tilemap, dungeonTexture);
+            levelBuilder = new LevelBuilder(tilemap, dungeonTexture);
         }
 
-        protected override void LoadContent()
-        {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
-            dirt = Content.Load<Texture2D>("8 dirt");
-            tileSetTexture = Content.Load<Texture2D>("tilemap_8px");
-            dungeonTexture = Content.Load<Texture2D>("dungeon");
-            goombaTexture = Content.Load<Texture2D>("goomba");
-            goalTexture = Content.Load<Texture2D>("goalblob_8px");
-
-        }
+        
 
         protected override void Update(GameTime gameTime)
         {
@@ -113,7 +106,7 @@ namespace MGSimpelFysik
             
             if (ks.IsKeyDown(Keys.Space) && prevks.IsKeyUp(Keys.Space))
             {
-                levelHandler.SetTilesFromImage(GraphicsDevice, tilemap);
+                levelBuilder.SetTilesFromImage(GraphicsDevice, tilemap);
                 
             }
 
