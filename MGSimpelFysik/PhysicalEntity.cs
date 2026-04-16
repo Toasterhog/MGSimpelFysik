@@ -17,8 +17,8 @@ namespace MGSimpelFysik
         float tempBounceSpeed = 100f;
         private enum CollisionShapeType { circle, square }; //meh datatyp
         CollisionShapeType colltype = CollisionShapeType.circle;
-        float bounciness = 0.4f;
-        float slidyness = 0.95f;
+        float bounciness = 0.2f;
+        float slidyness = 0.8f;
         float simulationSpeed = 1f;
 
         public PhysicalEntity(Tilemap tilemap, float collisionradious = 10) : base()
@@ -61,7 +61,14 @@ namespace MGSimpelFysik
                 if (position.Y > boundry)
                 {
                     position.Y = boundry;
-                    ReactVelocity(new Vector2(0, -1)); //velocity.Y = MathF.Min(velocity.Y, -velocity.Y*0.6f);
+                    if(velocity.Y < 150.0f) //nått mojs idk
+                    {
+                        ReactVelocityExtraParam(new Vector2(0, -1), 0, -1); //velocity.Y = MathF.Min(velocity.Y, -velocity.Y*0.6f);
+                    }
+                    else
+                    {
+                        ReactVelocity(new Vector2(0, -1));
+                    }
                 }
             }
             if (tilemap.GetTileType(new Point(tpos.X - 1, tpos.Y)) >= 0) //left
@@ -243,13 +250,26 @@ namespace MGSimpelFysik
         }
         private void ReactVelocityExtraParam(Vector2 normal, float bounce2, float slidy2)
         {
+            if(bounce2 <0) { bounce2 = bounciness; }
+            if (slidy2 < 0) { slidy2 = slidyness; }
             float dot = Vector2.Dot(velocity, normal);
             if (dot > 0) return;
-            Vector2 velNorm = normal * -dot * (bounciness / 3 + bounce2 * 2 / 3);
-            Vector2 velPara = (velocity - normal * dot) * (slidyness / 3 + slidy2 * 2 / 3);
+            Vector2 velNorm = normal * -dot * bounce2;
+            Vector2 velPara = (velocity - normal * dot) * slidy2;
             velocity = velNorm + velPara;
 
         }
+        //private void ReactVelocityExtraParam(Vector2 normal, float bounce2, float slidy2)
+        //{
+        //    if (bounce2 < 0) { bounce2 = bounciness; }
+        //    if (slidy2 < 0) { slidy2 = slidyness; }
+        //    float dot = Vector2.Dot(velocity, normal);
+        //    if (dot > 0) return;
+        //    Vector2 velNorm = normal * -dot * (bounciness / 3 + bounce2 * 2 / 3);
+        //    Vector2 velPara = (velocity - normal * dot) * (slidyness / 3 + slidy2 * 2 / 3);
+        //    velocity = velNorm + velPara;
+
+        //}
 
     }
 }

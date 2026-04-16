@@ -24,10 +24,30 @@ namespace MGSimpelFysik
         public static Point ClampP(Point v, Point u)
         {
             int x = ClampI(v.X, 0, u.X);
-            int y = ClampI(v.Y, 0, u.X);
+            int y = ClampI(v.Y, 0, u.Y);
             return new Point(x, y);
         }
-        
+        public static float ModF(float a, float b)
+        {
+            return ((a % b) + b) % b;
+        }
+        public static int ModI(int v, int b)
+        {
+            //return ((v % b) + b) % b;
+            return (v + b * 100) % b;
+        }
+        public static Vector2 WrapV(Vector2 v, Vector2 u)
+        {
+            float x = ModF(v.X, u.X);
+            float y = ModF(v.Y, u.Y);
+            return new Vector2(x, y);
+        }
+        public static Point WrapP(Point v, Point u)
+        {
+            int x = ModI(v.X, u.X);
+            int y = ModI(v.Y, u.Y);
+            return new Point(x, y);
+        }
 
     }
 }

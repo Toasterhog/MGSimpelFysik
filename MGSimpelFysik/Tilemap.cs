@@ -27,17 +27,16 @@ namespace MGSimpelFysik
 
         public Point PosToTile(Vector2 pos)
         {
-            Point p1 = new Point((int)pos.X / tileSize, (int)pos.Y / tileSize);
-            return Mathlike.ClampP(p1, new Point(20, 12));
+            return new Point((int)pos.X / tileSize, (int)pos.Y / tileSize);
         }
         public int GetTileType(Vector2 pos)
         {
             Point coord = PosToTile(pos);
             return GetTileType(coord);
         }
-        public int GetTileType(Point coord) //should wrap
+        public int GetTileType(Point coord)
         {
-            if (coord.X < 0 || coord.Y < 0 || coord.X >= tiles.GetLength(0) || coord.Y >= tiles.GetLength(1)) return -1;
+            coord = Mathlike.WrapP(coord, new Point(20, 12));
             return tiles[coord.X, coord.Y];
         }
         public void SetTiles(int[,] newTiles)

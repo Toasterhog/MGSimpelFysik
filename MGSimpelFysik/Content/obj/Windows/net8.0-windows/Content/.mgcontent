@@ -4,12 +4,12 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/07RUIVA/OneDrive - Göliska EDU/programmering 2/MGSimpelFysik/MGSimpelFysik/Content/8 dirt.png</File>
-    <File>C:/Users/07RUIVA/OneDrive - Göliska EDU/programmering 2/MGSimpelFysik/MGSimpelFysik/Content/dungeon.png</File>
-    <File>C:/Users/07RUIVA/OneDrive - Göliska EDU/programmering 2/MGSimpelFysik/MGSimpelFysik/Content/goalblob_8px.png</File>
-    <File>C:/Users/07RUIVA/OneDrive - Göliska EDU/programmering 2/MGSimpelFysik/MGSimpelFysik/Content/goomba.png</File>
-    <File>C:/Users/07RUIVA/OneDrive - Göliska EDU/programmering 2/MGSimpelFysik/MGSimpelFysik/Content/tilemap_32px.png</File>
-    <File>C:/Users/07RUIVA/OneDrive - Göliska EDU/programmering 2/MGSimpelFysik/MGSimpelFysik/Content/tilemap_8px.png</File>
+    <File>C:/Users/Ruben/Source/Repos/MGSimpelFysik/MGSimpelFysik/Content/8 dirt.png</File>
+    <File>C:/Users/Ruben/Source/Repos/MGSimpelFysik/MGSimpelFysik/Content/dungeon.png</File>
+    <File>C:/Users/Ruben/Source/Repos/MGSimpelFysik/MGSimpelFysik/Content/goalblob_8px.png</File>
+    <File>C:/Users/Ruben/Source/Repos/MGSimpelFysik/MGSimpelFysik/Content/goomba.png</File>
+    <File>C:/Users/Ruben/Source/Repos/MGSimpelFysik/MGSimpelFysik/Content/tilemap_32px.png</File>
+    <File>C:/Users/Ruben/Source/Repos/MGSimpelFysik/MGSimpelFysik/Content/tilemap_8px.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
