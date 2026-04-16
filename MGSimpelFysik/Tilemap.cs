@@ -25,9 +25,10 @@ namespace MGSimpelFysik
             }
         }
 
-        public Point PosToTile(Vector2 pos) 
+        public Point PosToTile(Vector2 pos)
         {
-            return new Point((int)pos.X / tileSize, (int)pos.Y / tileSize); 
+            Point p1 = new Point((int)pos.X / tileSize, (int)pos.Y / tileSize);
+            return Mathlike.ClampP(p1, new Point(20, 12));
         }
         public int GetTileType(Vector2 pos)
         {

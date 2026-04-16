@@ -18,7 +18,6 @@ namespace MGSimpelFysik
         private KeyboardState prevks;
         private MouseState prevms;
 
-        private Texture2D dirt;
         private Texture2D tileSetTexture;
         private Texture2D dungeonTexture;
         private Texture2D goombaTexture;
@@ -45,7 +44,6 @@ namespace MGSimpelFysik
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            dirt = Content.Load<Texture2D>("8 dirt");
             tileSetTexture = Content.Load<Texture2D>("tilemap_8px");
             dungeonTexture = Content.Load<Texture2D>("dungeon");
             goombaTexture = Content.Load<Texture2D>("goomba");

@@ -63,3 +63,37 @@ C:\Users\Ruben\Source\Repos\MGSimpelFysik\MGSimpelFysik\obj\Debug\net8.0-windows
 C:\Users\Ruben\Source\Repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\tilemap_32px.xnb
 C:\Users\Ruben\Source\Repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\tilemap_8px.xnb
 C:\Users\Ruben\Source\Repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\goalblob_8px.xnb
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\8 dirt.xnb
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\dungeon.xnb
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\goalblob_8px.xnb
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\goomba.xnb
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\tilemap_32px.xnb
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\tilemap_8px.xnb
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\MGSimpelFysik.exe
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\MGSimpelFysik.deps.json
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\MGSimpelFysik.runtimeconfig.json
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\MGSimpelFysik.dll
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\MGSimpelFysik.pdb
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\MonoGame.Framework.dll
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\SharpDX.dll
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\SharpDX.Direct2D1.dll
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\SharpDX.Direct3D11.dll
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\SharpDX.Direct3D9.dll
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\SharpDX.DXGI.dll
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\SharpDX.Mathematics.dll
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\SharpDX.MediaFoundation.dll
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\SharpDX.XAudio2.dll
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\SharpDX.XInput.dll
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\obj\Debug\net8.0-windows\mgcb.tool.restore
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\obj\Debug\net8.0-windows\MGSimpelFysik.csproj.AssemblyReference.cache
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\obj\Debug\net8.0-windows\MGSimpelFysik.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\obj\Debug\net8.0-windows\MGSimpelFysik.AssemblyInfoInputs.cache
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\obj\Debug\net8.0-windows\MGSimpelFysik.AssemblyInfo.cs
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\obj\Debug\net8.0-windows\MGSimpelFysik.csproj.CoreCompileInputs.cache
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\obj\Debug\net8.0-windows\MGSimpelFysik.sourcelink.json
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\obj\Debug\net8.0-windows\MGSimpel.3070A34B.Up2Date
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\obj\Debug\net8.0-windows\MGSimpelFysik.dll
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\obj\Debug\net8.0-windows\refint\MGSimpelFysik.dll
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\obj\Debug\net8.0-windows\MGSimpelFysik.pdb
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\obj\Debug\net8.0-windows\MGSimpelFysik.genruntimeconfig.cache
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\obj\Debug\net8.0-windows\ref\MGSimpelFysik.dll
