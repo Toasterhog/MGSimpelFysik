@@ -12,14 +12,13 @@ namespace MGSimpelFysik
     {
         public Vector2 velocity = new Vector2(100f, -10f);
         public Vector2 gravity = new Vector2(0, 800f); // 16 tiles per sekund^2
-        float collisionradious = 10;
-        private Tilemap tilemap;
-        float tempBounceSpeed = 100f;
-        private enum CollisionShapeType { circle, square }; //meh datatyp
-        CollisionShapeType colltype = CollisionShapeType.circle;
-        float bounciness = 0.2f;
-        float slidyness = 0.8f;
-        float simulationSpeed = 1f;
+        protected float collisionradious = 10;
+        protected  Tilemap tilemap;
+        protected enum CollisionShapeType { circle, square }; //meh datatyp
+        protected CollisionShapeType colltype = CollisionShapeType.circle;
+        protected float bounciness = 0.2f;
+        protected float slidyness = 0.8f;
+        protected float simulationSpeed = 1f;
 
         public PhysicalEntity(Tilemap tilemap, float collisionradious = 10) : base()
         {
@@ -37,7 +36,7 @@ namespace MGSimpelFysik
         {
 
         }
-        public void PhysicsUpdate(GameTime gameTime)
+        public virtual void PhysicsUpdate(GameTime gameTime)
         {
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds * simulationSpeed / 1000;
             const float tileSize = 50;
