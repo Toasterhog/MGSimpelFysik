@@ -6,7 +6,7 @@ using System.Diagnostics;
 namespace MGSimpelFysik
 {
    
-    public class Tilemap
+    public class Tilemap : IDrawable
     {
         private int[,] tiles = new int[20, 12];
         private int tileSize = 50;

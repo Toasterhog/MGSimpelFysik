@@ -1,31 +1,39 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Diagnostics;
 
 
 namespace MGSimpelFysik
 {
-    internal class Projectile : PhysicalEntity
+    public class Projectile : PhysicalEntity 
     {
         private Portal portal;
         private bool isBlue;
-        private bool isLeft = false; //kanske inte orkar ha med
+        private bool isLeft = false; //kanske inte orkar ha med //ie flipped
         const int COLLRAD = 5;
+        const float SPEED = 900;
 
-
-        public Projectile(Portal portal, bool typeIsBlue, Tilemap tilemap, Texture2D texture = null, AnimatedSprite animatedSprite = null, float collisionradious = 10, Vector2? position = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
-        : base(tilemap, texture, animatedSprite, COLLRAD, position, rotation, scale, spriteEffects, layerDepth)
+        public Projectile(Portal portal, bool typeIsBlue, Vector2 direction, Tilemap tilemap, Texture2D texture = null, AnimatedSprite animatedSprite = null, float collisionradious = 10, Vector2? position = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
+        : base(tilemap, texture, animatedSprite, COLLRAD, position, rotation, 3, spriteEffects, layerDepth)
         {
             isBlue = typeIsBlue;
             this.portal = portal;
+            gravity = Vector2.Zero;
+            velocity = direction * SPEED;
+            origin = new Vector2(6f, 3.5f);
         }
 
 
-
+        public void RemoveSelf()
+        {
+            portal.RemoveProjectile(isBlue);
+        }
 
         private void HitReactsion(Point tile, Point collidedTile)
         {
-            if(Tilemap.GetTileType(collidedTile) == 1)
+            Debug.WriteLine("proj hit");
+            if(tilemap.GetTileType(collidedTile) == 1) //white
             {
                 Point normal = tile - collidedTile;
                 int orientation = -1;
@@ -47,26 +55,24 @@ namespace MGSimpelFysik
                         orientation = -1;
                         break;
                 }
-            
+                if(orientation != -1)
+                {
+                    portal.SetPortal(tile, orientation, false, isBlue);
+                }
             }
-
-            //        if white tile
-            //portal.set portal(pos, norm)
-            //    kill self
-            //else
-            //    kill self
+            RemoveSelf();
         }
 
 
         public override void PhysicsUpdate(GameTime gameTime)
         {
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds * simulationSpeed / 1000;
-            const float tileSize = 50;
+            //const float tileSize = 50;
 
             Point oldTileC = tilemap.PosToTile(position);
 
-            velocity += gravity * delta;
-            velocity = new Vector2(MathF.Min(MathF.Max(velocity.X, -collisionradious / delta), collisionradious / delta), MathF.Min(MathF.Max(velocity.Y, -collisionradious / delta), collisionradious / delta));
+            //velocity += gravity * delta;
+            //velocity = new Vector2(MathF.Min(MathF.Max(velocity.X, -collisionradious / delta), collisionradious / delta), MathF.Min(MathF.Max(velocity.Y, -collisionradious / delta), collisionradious / delta));
             position += velocity * delta;
 
             Point newTileC = tilemap.PosToTile(position);
@@ -74,28 +80,7 @@ namespace MGSimpelFysik
             if (newTileC == oldTileC) return;
             if(tilemap.GetTileType(newTileC) >= 0)
             {
-                Point normal = oldTileC - newTileC;
-                if (normal.X != 0 || normal.Y != 0) return; //orkar inte hantera diagonaler/hörn
-                int orientation = -1;
-                switch (normal)
-                {
-                    case Point(0, -1):
-                        orientation = 0;
-                        break;
-                    case Point(1, 0):
-                        orientation = 1;
-                        break;
-                    case Point(0, 1):
-                        orientation = 2;
-                        break;
-                    case Point(-1, 0):
-                        orientation = 3;
-                        break;
-                    default:
-                        orientation = -1;
-                        break;
-                }
-                HitReactsion(orientation, oldTileC);
+                HitReactsion(oldTileC, newTileC);
             }
         }
 

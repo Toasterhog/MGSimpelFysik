@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace MGSimpelFysik
 {
-    internal class Physics
+    public class Physics
     {
         public List<PhysicalEntity> entities = new List<PhysicalEntity>();
         private Tilemap tilemap;
         private int gameWindowWidth = 500;
         private int gameWindowHeight = 500;
+        public List<PhysicalEntity> pEntitiesToAdd = new List<PhysicalEntity>();
+        public List<PhysicalEntity> pEntitiesToRemove = new List<PhysicalEntity>();
+
         public Physics(int gameWindowWidth, int gameWindowHeight, Tilemap tilemap)
         {
             this.gameWindowWidth = gameWindowWidth;
@@ -20,8 +23,28 @@ namespace MGSimpelFysik
             this.tilemap = tilemap;
         }
 
+        public void AddEntity(PhysicalEntity entity)
+        {
+            pEntitiesToAdd.Add(entity);
+        }
+        public void RemoveEntity(PhysicalEntity entity) 
+        {
+            pEntitiesToRemove.Add(entity); 
+        }
+
         public void Update(GameTime gameTime)
         {
+            foreach (PhysicalEntity PE in pEntitiesToAdd) //modifiera entities listan innan istället för medans foreach körs = inte error
+            {
+                entities.Add(PE);
+            }
+            pEntitiesToAdd.Clear();
+            foreach (PhysicalEntity PE in pEntitiesToRemove)
+            {
+                entities.Remove(PE);
+            }
+            pEntitiesToRemove.Clear();
+
             foreach (PhysicalEntity entity in entities)
             {
                 entity.PhysicsUpdate(gameTime);

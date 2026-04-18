@@ -33,8 +33,8 @@ namespace MGSimpelFysik
         }
         public static int ModI(int v, int b)
         {
-            //return ((v % b) + b) % b;
-            return (v + b * 100) % b;
+            return ((v % b) + b) % b;
+            //return (v + b * 100) % b;
         }
         public static Vector2 WrapV(Vector2 v, Vector2 u)
         {

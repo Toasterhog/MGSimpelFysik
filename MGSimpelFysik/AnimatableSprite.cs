@@ -28,7 +28,7 @@ namespace MGSimpelFysik
         public AnimatedSprite(Texture2D texture) 
         { 
             this.texture = texture; 
-            Playing = false; 
+            //Playing = false; 
         }
         public AnimatedSprite(Texture2D Texture, int regionWidth = 0)
         {
@@ -63,7 +63,8 @@ namespace MGSimpelFysik
     {
         private Rectangle[,] textures;
         private Point index = new Point();
-        
+        public override Rectangle CurrentTextureRegion => textures[index.X,index.Y];
+
         public AdvancedSprite(Texture2D texture, Point regionSize) : base(texture)
         {
             textures = new Rectangle[texture.Width/regionSize.X , texture.Height/regionSize.Y];
@@ -94,7 +95,7 @@ namespace MGSimpelFysik
         }
         public void SetSequence(int sequence)
         {
-            if (sequence < 0 && sequence < textures.GetLength(1)) { index.Y = sequence; }
+            if (sequence >= 0 && sequence < textures.GetLength(1)) { index.Y = sequence; }
         }
 
     }

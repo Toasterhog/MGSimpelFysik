@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace MGSimpelFysik
 {
-    public class Entity
+    public class Entity : IDrawable
     {
         public Vector2 position = new Vector2(50,50);
         public float rotation = 0;
@@ -15,8 +15,9 @@ namespace MGSimpelFysik
         public AnimatedSprite animatedSprite;
         public SpriteEffects spriteEffects = SpriteEffects.None;
         public float layerDepth = 0;
+        public Color colorMultiplier = Color.White;
 
-        
+
         public Entity(Texture2D texture = null, AnimatedSprite animatedSprite = null, Vector2? position = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
         {
             this.texture = texture;
@@ -36,11 +37,11 @@ namespace MGSimpelFysik
             
             if (animatedSprite != null)
             {
-                spriteBatch.Draw(animatedSprite.texture, position, animatedSprite.CurrentTextureRegion, Color.White, rotation, origin, scale, spriteEffects, layerDepth);
+                spriteBatch.Draw(animatedSprite.texture, position, animatedSprite.CurrentTextureRegion, colorMultiplier, rotation, origin, scale, spriteEffects, layerDepth);
             }
             else if (texture != null) 
             {
-                spriteBatch.Draw(texture, position, null, Color.White, rotation, new Vector2(texture.Width / 2, texture.Height / 2), scale, spriteEffects, layerDepth);
+                spriteBatch.Draw(texture, position, null, colorMultiplier, rotation, new Vector2(texture.Width / 2, texture.Height / 2), scale, spriteEffects, layerDepth);
             }
         }
     }
