@@ -20,15 +20,15 @@ namespace MGSimpelFysik
         protected float bounciness = 0.2f;
         protected float slidyness = 0.8f;
         protected float simulationSpeed = 1f;
-        protected Portal portalSys;
+        protected PortalHandler portalSys;
 
-        public PhysicalEntity(Portal portalSystem, Tilemap tilemap, float collisionradious = 10) : base()
+        public PhysicalEntity(PortalHandler portalSystem, Tilemap tilemap, float collisionradious = 10) : base()
         {
             this.collisionradious = collisionradious;
             this.tilemap = tilemap;
             portalSys = portalSystem;
         }
-        public PhysicalEntity(Portal portalSystem, Tilemap tilemap, Texture2D texture = null, AnimatedSprite animatedSprite = null, float collisionradious = 10, Vector2? position = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
+        public PhysicalEntity(PortalHandler portalSystem, Tilemap tilemap, Texture2D texture = null, AnimatedSprite animatedSprite = null, float collisionradious = 10, Vector2? position = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
         : base(texture, animatedSprite, position, rotation, scale, spriteEffects, layerDepth)
         {
             this.collisionradious = collisionradious; //får inte vara mer än 25 (collrad/2)
@@ -44,6 +44,7 @@ namespace MGSimpelFysik
         {
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds * simulationSpeed / 1000;
             const float tileSize = 50;
+            Point[] LDRU = [new Point(1, 0), new Point(0, 1), new Point(-1, 0), new Point(0, -1)];
 
             velocity += gravity * delta;
             velocity = new Vector2(MathF.Min(MathF.Max(velocity.X, -collisionradious / delta), collisionradious / delta), MathF.Min(MathF.Max(velocity.Y, -collisionradious / delta), collisionradious / delta));
@@ -95,6 +96,30 @@ namespace MGSimpelFysik
             }
 
             #region axis aligned collision detection
+
+            foreach(Point tileOffset in LDRU)
+            {
+                Point collTile = tpos + tileOffset;
+                if (tilemap.GetTileType(collTile) >= 0 &&
+                    !portalSys.TileHasDisabledCollision(collTile))
+                {
+                    Vector2 tileOffsetVector = tileOffset.ToVector2();
+
+                    Vector2 boundry = tileOffsetVector * tileSize * 0.5f;
+                    Vector2 localPos = Mathlike.WrapV(position, new Vector2(tileSize, tileSize));
+                    Vector2 entityBoundry = localPos + tileOffsetVector * collisionradious;
+                    float overlap = Mathlike.ProjectionFactor(entityBoundry,boundry);
+                    if (overlap > 1)
+                    {
+
+                    }
+                }
+            }
+            //----------------------------------------------------------------
+            //------------byter ut typ allt under mot foreach ovan------------
+            //----------------------------------------------------------------
+
+
 
             if (tilemap.GetTileType(new Point(tpos.X, tpos.Y + 1)) >= 0) //down
             {

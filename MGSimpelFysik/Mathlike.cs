@@ -57,6 +57,11 @@ namespace MGSimpelFysik
         {
             return MathF.Atan2(v.X, v.Y);
         }
+        public static float ProjectionFactor(Vector2 v, Vector2 dir)
+        {
+            float dot = Vector2.Dot(v,dir);
+            return dot / dir.LengthSquared();
+        }
 
     }
 }

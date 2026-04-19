@@ -43,7 +43,7 @@ namespace MGSimpelFysik
         private PhysicalEntity goomba;
         public Tilemap tilemap;
         public Physics physicsWorld;
-        public Portal portalSystem;
+        public PortalHandler portalSystem;
 
         public List<IDrawable> visuals = new List<IDrawable>();
 
@@ -80,7 +80,7 @@ namespace MGSimpelFysik
 
             base.Initialize(); //base.init calls LoadContent
             
-            portalSystem = new Portal(this);
+            portalSystem = new PortalHandler(this);
             blueProjectileAnim = new AdvancedSprite(blueProjectileTexture, new Point(12,7));
             yellowProjectileAnim = new AdvancedSprite(blueProjectileTexture, new Point(12, 7));
             blueProjectileAnim.Delay = 50;

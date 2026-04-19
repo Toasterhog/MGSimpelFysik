@@ -8,13 +8,13 @@ namespace MGSimpelFysik
 {
     public class Projectile : PhysicalEntity 
     {
-        private Portal portal;
+        private PortalHandler portal;
         private bool isBlue;
         public bool isLeft = false; //kanske inte orkar ha med //ie flipped
         const int COLLRAD = 5;
         const float SPEED = 900;
 
-        public Projectile(Portal portal, bool typeIsBlue, Vector2 direction, Tilemap tilemap, Texture2D texture = null, AnimatedSprite animatedSprite = null, float collisionradious = 10, Vector2? position = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
+        public Projectile(PortalHandler portal, bool typeIsBlue, Vector2 direction, Tilemap tilemap, Texture2D texture = null, AnimatedSprite animatedSprite = null, float collisionradious = 10, Vector2? position = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
         : base(portal, tilemap, texture, animatedSprite, COLLRAD, position, rotation, 3, spriteEffects, layerDepth)
         {
             isBlue = typeIsBlue;
