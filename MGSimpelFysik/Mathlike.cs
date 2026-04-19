@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace MGSimpelFysik
 {
@@ -47,6 +48,14 @@ namespace MGSimpelFysik
             int x = ModI(v.X, u.X);
             int y = ModI(v.Y, u.Y);
             return new Point(x, y);
+        }
+        public static float angleV(Vector2 v)
+        {
+            return MathF.Atan2(v.X, v.Y);
+        }
+        public static float angleP(Point v)
+        {
+            return MathF.Atan2(v.X, v.Y);
         }
 
     }

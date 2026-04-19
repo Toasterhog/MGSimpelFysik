@@ -61,6 +61,24 @@
 /processorParam:TextureFormat=Color
 /build:goomba.png
 
+#begin Menu_Select_01.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Menu_Select_01.wav
+
+#begin portalGlow.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:portalGlow.png
+
 #begin projectile.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -96,4 +114,10 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tilemap_8px.png
+
+#begin WarpDrive_00.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:WarpDrive_00.wav
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Direct2D1.Effects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,17 +20,20 @@ namespace MGSimpelFysik
         protected float bounciness = 0.2f;
         protected float slidyness = 0.8f;
         protected float simulationSpeed = 1f;
+        protected Portal portalSys;
 
-        public PhysicalEntity(Tilemap tilemap, float collisionradious = 10) : base()
+        public PhysicalEntity(Portal portalSystem, Tilemap tilemap, float collisionradious = 10) : base()
         {
             this.collisionradious = collisionradious;
             this.tilemap = tilemap;
+            portalSys = portalSystem;
         }
-        public PhysicalEntity(Tilemap tilemap, Texture2D texture = null, AnimatedSprite animatedSprite = null, float collisionradious = 10, Vector2? position = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
+        public PhysicalEntity(Portal portalSystem, Tilemap tilemap, Texture2D texture = null, AnimatedSprite animatedSprite = null, float collisionradious = 10, Vector2? position = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
         : base(texture, animatedSprite, position, rotation, scale, spriteEffects, layerDepth)
         {
             this.collisionradious = collisionradious; //får inte vara mer än 25 (collrad/2)
             this.tilemap = tilemap;
+            this.portalSys = portalSystem;
         }
 
         public void Update(GameTime gameTime)
@@ -48,27 +52,78 @@ namespace MGSimpelFysik
             Point tpos = tilemap.PosToTile(position);
             if (tilemap.GetTileType(new Point(tpos.X, tpos.Y)) >= 0) //inside solid reaction
             {
-                velocity = velocity * 0.9f;
-                return;
+                Point oldtpos = tilemap.PosToTile(position - velocity * delta);
+                if (portalSys.bluePortalsExists && portalSys.bluePortalFrame.coord == oldtpos)
+                {
+                    Point normal = oldtpos - tpos;
+                    int orientation = -1;
+                    switch (normal)
+                    {
+                        case Point(0, -1): //up 0
+                            orientation = 0;
+                            break;
+                        case Point(1, 0): //höger 1
+                            orientation = 1;
+                            break;
+                        case Point(0, 1): //ner 2
+                            orientation = 2;
+                            break;
+                        case Point(-1, 0): //vänster 3
+                            orientation = 3;
+                            break;
+                        default:
+                            orientation = -1;
+                            break;
+                    }
+                    if(portalSys.bluePortalFrame.side == orientation)
+                    {
+                        Teleport(true);
+                    }
+                }
+                else if (portalSys.yellowPortalsExists && portalSys.yellowPortalFrame.coord == tpos && portalSys.yellowPortalFrame.side == 2)
+                {
+                    
+                }
+                else
+                {
+                    velocity *= 0.9f;
+                    return;
+                }
+
+
+                
             }
 
             #region axis aligned collision detection
 
             if (tilemap.GetTileType(new Point(tpos.X, tpos.Y + 1)) >= 0) //down
             {
-                float boundry = (tpos.Y + 1) * tileSize - collisionradious;
-                if (position.Y > boundry)
+                bool noPortalHinderingColl = true;
+                if(portalSys.bluePortalsExists && portalSys.bluePortalFrame.coord == tpos && portalSys.bluePortalFrame.side == 0)
                 {
-                    position.Y = boundry;
-                    if(velocity.Y < 150.0f) //nått mojs idk
+                    noPortalHinderingColl = false;
+                }
+                else if (portalSys.yellowPortalsExists && portalSys.yellowPortalFrame.coord == tpos && portalSys.yellowPortalFrame.side == 0)
+                {
+                    noPortalHinderingColl = false;
+                }
+                if (noPortalHinderingColl)
+                {
+                    float boundry = (tpos.Y + 1) * tileSize - collisionradious;
+                    if (position.Y > boundry)
                     {
-                        ReactVelocityExtraParam(new Vector2(0, -1), 0, -1); //velocity.Y = MathF.Min(velocity.Y, -velocity.Y*0.6f);
-                    }
-                    else
-                    {
-                        ReactVelocity(new Vector2(0, -1));
+                        position.Y = boundry;
+                        if (velocity.Y < 150.0f) //nått mojs idk
+                        {
+                            ReactVelocityExtraParam(new Vector2(0, -1), 0, -1); //velocity.Y = MathF.Min(velocity.Y, -velocity.Y*0.6f);
+                        }
+                        else
+                        {
+                            ReactVelocity(new Vector2(0, -1));
+                        }
                     }
                 }
+                
             }
             if (tilemap.GetTileType(new Point(tpos.X - 1, tpos.Y)) >= 0) //left
             {
@@ -270,5 +325,25 @@ namespace MGSimpelFysik
 
         //}
 
+
+        public void Teleport(bool destinationIsYellow)
+        {
+            int tilesize = tilemap.TileSize;
+            if (destinationIsYellow)
+            {
+                Point destTile = portalSys.yellowPortalFrame.coord;
+                //från mitten av tiles bakom portalen till position
+                Vector2 localPos = new Vector2(tilesize/2f, tilesize/2f) - Mathlike.WrapV(position, new Vector2(tilesize, tilesize));
+                float angleB = portalSys.bluePortalFrame.side * MathF.PI / 2f;
+                float angleY = portalSys.yellowPortalFrame.side * MathF.PI / 2f;
+                float rotation = -angleB + angleY +MathF.PI; //?? osäker +180
+                localPos.Rotate(rotation);
+                Vector2 destPos = tilemap.TileTOPosCenter(destTile) + localPos;
+
+                position = destPos;
+
+                velocity.Rotate(rotation);
+            }
+        }
     }
 }

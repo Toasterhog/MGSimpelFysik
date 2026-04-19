@@ -10,6 +10,7 @@ namespace MGSimpelFysik
     {
         private int[,] tiles = new int[20, 12];
         private int tileSize = 50;
+        public int TileSize { get { return tileSize; } }
         private Texture2D tileset;
         private Rectangle[] sourceRects;
         public AnimatedSprite goalsprite;
@@ -28,6 +29,14 @@ namespace MGSimpelFysik
         public Point PosToTile(Vector2 pos)
         {
             return new Point((int)pos.X / tileSize, (int)pos.Y / tileSize);
+        }
+        public Vector2 TileTOPos(Point coord)
+        {
+            return new Vector2(coord.X * tileSize, coord.Y * tileSize);
+        }
+        public Vector2 TileTOPosCenter(Point coord)
+        {
+            return new Vector2(coord.X * tileSize, coord.Y * tileSize) + new Vector2(tileSize / 2f, tileSize / 2f);
         }
         public int GetTileType(Vector2 pos)
         {

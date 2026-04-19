@@ -10,12 +10,12 @@ namespace MGSimpelFysik
     {
         private Portal portal;
         private bool isBlue;
-        private bool isLeft = false; //kanske inte orkar ha med //ie flipped
+        public bool isLeft = false; //kanske inte orkar ha med //ie flipped
         const int COLLRAD = 5;
         const float SPEED = 900;
 
         public Projectile(Portal portal, bool typeIsBlue, Vector2 direction, Tilemap tilemap, Texture2D texture = null, AnimatedSprite animatedSprite = null, float collisionradious = 10, Vector2? position = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
-        : base(tilemap, texture, animatedSprite, COLLRAD, position, rotation, 3, spriteEffects, layerDepth)
+        : base(portal, tilemap, texture, animatedSprite, COLLRAD, position, rotation, 3, spriteEffects, layerDepth)
         {
             isBlue = typeIsBlue;
             this.portal = portal;
@@ -57,7 +57,7 @@ namespace MGSimpelFysik
                 }
                 if(orientation != -1)
                 {
-                    portal.SetPortal(tile, orientation, false, isBlue);
+                    portal.SetPortal(tile, orientation, isLeft, isBlue);
                 }
             }
             RemoveSelf();
