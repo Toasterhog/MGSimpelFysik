@@ -20,18 +20,18 @@ namespace MGSimpelFysik
         {
             this.game = game;
         }
-        public void SetPortal(Point tile, int orientation, bool flipped, bool isBlue)
+        public void SetPortal(Point tile, Point indir, bool flipped, bool isBlue)
         {
             Debug.WriteLine("portal place");
             if (isBlue)
             {
                 if (portalB != null) { DestroyPortal(portalB); }
-                portalB = new Portal(tile, orientation, flipped);
+                portalB = new Portal(tile, indir, flipped);
             }
             else
             {
                 if (portalY != null) { DestroyPortal(portalY); }
-                portalY = new Portal(tile, orientation, flipped);
+                portalY = new Portal(tile, indir, flipped);
             }
         }
         public void DestroyPortal(Portal portalToDestroy)
@@ -84,8 +84,26 @@ namespace MGSimpelFysik
             else { yellowProjectile = proj; }
             Debug.WriteLine("rotation " + proj.rotation + " dir " + direction);
         }
-        public bool TileHasDisabledCollision(Point tile) {  return false; } //not implemented!!!!!!!!!!!!!!!!!!
-
+        public bool TileHasDisabledCollision(Point tile, Point inDirection) 
+        {
+            Portal[] parr = [portalB, portalY];
+            foreach ( Portal portal in parr)
+            {
+                if (portal == null) continue;
+                if (portal.tile == tile && portal.inDirection == inDirection)  return true;
+            }
+            return false; 
+        } 
+        public Portal GetPortalFromTile(Point tile)
+        {
+            Portal[] parr = [portalB, portalY];
+            foreach (Portal portal in parr)
+            {
+                if (portal == null) continue;
+                if (portal.tile == tile ) return portal;
+            }
+            return null;
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             Portal[] toDraw = [portalB, portalY ];

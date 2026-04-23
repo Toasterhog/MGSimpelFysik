@@ -10,13 +10,15 @@ namespace MGSimpelFysik
         private PortalHandler handler;
         public Point tile { get; }
         public float orientation { get; }
+        public Point inDirection { get; } //en av dem
         public bool flipped { get; }
 
-        public Portal(Point tile, float orientation, bool flipped)
+        public Portal(Point tile, Point indir, bool flipped)
         {
             this.tile = tile;
-            this.orientation = orientation;
+            //this.orientation = orientation;
             this.flipped = flipped;
+            this.inDirection = indir;
         }
     }
 }

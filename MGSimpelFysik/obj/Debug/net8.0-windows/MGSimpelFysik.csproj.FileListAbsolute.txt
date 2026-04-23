@@ -101,3 +101,7 @@ C:\Users\Ruben\Source\Repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows
 C:\Users\Ruben\Source\Repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\Menu_Select_01.xnb
 C:\Users\Ruben\Source\Repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\WarpDrive_00.xnb
 C:\Users\Ruben\Source\Repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\portalGlow.xnb
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\Menu_Select_01.xnb
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\portalGlow.xnb
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\projectile.xnb
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\WarpDrive_00.xnb

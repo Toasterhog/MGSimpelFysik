@@ -32,34 +32,35 @@ namespace MGSimpelFysik
 
         private void HitReactsion(Point tile, Point collidedTile)
         {
-            Debug.WriteLine("proj hit");
-            if(tilemap.GetTileType(collidedTile) == 1) //white
-            {
-                Point normal = tile - collidedTile;
-                int orientation = -1;
-                switch (normal)
-                {
-                    case Point(0, -1):
-                        orientation = 0;
-                        break;
-                    case Point(1, 0):
-                        orientation = 1;
-                        break;
-                    case Point(0, 1):
-                        orientation = 2;
-                        break;
-                    case Point(-1, 0):
-                        orientation = 3;
-                        break;
-                    default:
-                        orientation = -1;
-                        break;
-                }
-                if(orientation != -1)
-                {
-                    portal.SetPortal(tile, orientation, isLeft, isBlue);
-                }
-            }
+            //Debug.WriteLine("proj hit");
+            //if(tilemap.GetTileType(collidedTile) == 1) //white
+            //{
+            //    Point normal = tile - collidedTile;
+            //    int orientation = -1;
+            //    switch (normal)
+            //    {
+            //        case Point(0, -1):
+            //            orientation = 0;
+            //            break;
+            //        case Point(1, 0):
+            //            orientation = 1;
+            //            break;
+            //        case Point(0, 1):
+            //            orientation = 2;
+            //            break;
+            //        case Point(-1, 0):
+            //            orientation = 3;
+            //            break;
+            //        default:
+            //            orientation = -1;
+            //            break;
+            //    }
+            //    if(orientation != -1)
+            //    {
+            //        portal.SetPortal(tile, orientation, isLeft, isBlue);
+            //    }
+            //}
+            portal.SetPortal(tile, collidedTile-tile, isLeft, isBlue);
             RemoveSelf();
         }
 
@@ -69,13 +70,13 @@ namespace MGSimpelFysik
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds * simulationSpeed / 1000;
             //const float tileSize = 50;
 
-            Point oldTileC = tilemap.PosToTile(position);
+            Point oldTileC = Tilemap.PosToTile(position);
 
             //velocity += gravity * delta;
             //velocity = new Vector2(MathF.Min(MathF.Max(velocity.X, -collisionradious / delta), collisionradious / delta), MathF.Min(MathF.Max(velocity.Y, -collisionradious / delta), collisionradious / delta));
             position += velocity * delta;
 
-            Point newTileC = tilemap.PosToTile(position);
+            Point newTileC = Tilemap.PosToTile(position);
 
             if (newTileC == oldTileC) return;
             if(tilemap.GetTileType(newTileC) >= 0)
