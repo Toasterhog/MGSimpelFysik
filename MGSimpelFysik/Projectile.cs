@@ -30,7 +30,7 @@ namespace MGSimpelFysik
             portal.RemoveProjectile(isBlue);
         }
 
-        private void HitReactsion(Point tile, Point collidedTile)
+        private void HitReaction(Point tile, Point collidedTile)
         {
             //Debug.WriteLine("proj hit");
             //if(tilemap.GetTileType(collidedTile) == 1) //white
@@ -60,7 +60,14 @@ namespace MGSimpelFysik
             //        portal.SetPortal(tile, orientation, isLeft, isBlue);
             //    }
             //}
-            portal.SetPortal(tile, collidedTile-tile, isLeft, isBlue);
+
+            Point diff = tile - collidedTile;
+            bool tilesAreAxisAligned = diff.X == 0 || diff.Y == 0 ? true : false;
+
+            if (tilesAreAxisAligned && tilemap.GetTileType(collidedTile) == 1) //white
+            {
+                portal.SetPortal(tile, collidedTile - tile, isLeft, isBlue);
+            }
             RemoveSelf();
         }
 
@@ -81,7 +88,7 @@ namespace MGSimpelFysik
             if (newTileC == oldTileC) return;
             if(tilemap.GetTileType(newTileC) >= 0)
             {
-                HitReactsion(oldTileC, newTileC);
+                HitReaction(oldTileC, newTileC);
             }
         }
 

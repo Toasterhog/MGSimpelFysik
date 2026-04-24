@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/07RUIVA/OneDrive - Göliska EDU/programmering 2/MGSimpelFysik/MGSimpelFysik/Content/8 dirt.png</SourceFile>
-  <SourceTime>2026-04-16T13:40:59.8935312+02:00</SourceTime>
-  <DestFile>C:/Users/07RUIVA/OneDrive - Göliska EDU/programmering 2/MGSimpelFysik/MGSimpelFysik/Content/bin/Windows/Content/8 dirt.xnb</DestFile>
-  <DestTime>2026-04-23T14:01:03.2016358+02:00</DestTime>
+  <SourceFile>C:/Users/rivne/source/repos/MGSimpelFysik/MGSimpelFysik/Content/8 dirt.png</SourceFile>
+  <SourceTime>2025-02-03T19:36:30.1496878+01:00</SourceTime>
+  <DestFile>C:/Users/rivne/source/repos/MGSimpelFysik/MGSimpelFysik/Content/bin/Windows/Content/8 dirt.xnb</DestFile>
+  <DestTime>2026-04-23T20:09:04.0930409+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2025-06-02T12:31:02+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

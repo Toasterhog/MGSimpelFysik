@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SharpDX.Direct2D1.Effects;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -47,7 +48,7 @@ namespace MGSimpelFysik
         public virtual void PhysicsUpdate(GameTime gameTime)
         {
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds * simulationSpeed / 1000;
-            const float tileSize = 50;
+            float tileSize = Tilemap.TileSize;
             Point[] LDRU = [new Point(1, 0), new Point(0, 1), new Point(-1, 0), new Point(0, -1)];
 
             velocity += gravity * delta;
@@ -61,9 +62,10 @@ namespace MGSimpelFysik
             {
                 Point oldtpos = Tilemap.PosToTile(position - velocity * delta);
 
-                if(portalSys.TileHasDisabledCollision(oldtpos, oldtpos - tpos))
+                if(portalSys.TileHasDisabledCollision(oldtpos, tpos - oldtpos))
                 {
                     Teleport(portalSys.GetPortalFromTile(oldtpos));
+                    Debug.WriteLine("teleporting");
                 }
             }
 
@@ -330,24 +332,30 @@ namespace MGSimpelFysik
         //}
 
 
-        public void Teleport(Portal portal)
+        public void Teleport(Portal entryPortal)
         {
             int tilesize = Tilemap.TileSize;
-            Portal destinationPortal = portalSys.GetLinkedPortal(portal);
-            /*
-                Point destTile = portalSys.yellowPortalFrame.coord;
-                //från mitten av tiles bakom portalen till position
-                Vector2 localPos = new Vector2(tilesize/2f, tilesize/2f) - Mathlike.WrapV(position, new Vector2(tilesize, tilesize)); //bakvänd
-                float angleB = portalSys.bluePortalFrame.side * MathF.PI / 2f;
-                float angleY = portalSys.yellowPortalFrame.side * MathF.PI / 2f;
-                float rotation = -angleB + angleY +MathF.PI; //?? osäker +180
-                localPos.Rotate(rotation);
-                Vector2 destPos = tilemap.TileTOPosCenter(destTile) + localPos;
-            */
-                position = destinationPortal.tile.ToVector2();
+            Portal destPortal = portalSys.GetLinkedPortal(entryPortal);
 
-                //velocity.Rotate(rotation);
-            
+            Vector2 localPos = Mathlike.WrapV(position, new Vector2(tilesize, tilesize)) - new Vector2(tilesize / 2f, tilesize / 2f);
+            Point inDir = entryPortal.inDirection;
+            Point outDir = Point.Zero - destPortal.inDirection; //herererere
+
+            float angleIn = MathF.Atan2(inDir.X , inDir.Y);
+            float angleOut = MathF.Atan2(outDir.X, outDir.Y);
+            float rotation = -(angleOut - angleIn);
+            localPos.Rotate(rotation); //fel för positionen
+            Vector2 destPos = Tilemap.TileTOPosCenter(destPortal.tile) + localPos;
+
+            velocity.Rotate(rotation);
+            position = destPos;
+
         }
+
+
+
+       
+
+
     }
 }

@@ -80,9 +80,15 @@ namespace MGSimpelFysik
 
             game.physicsWorld.AddEntity(proj);
             game.visuals.Add(proj as IDrawable);
-            if (isBlue) {blueProjectile = proj; }
-            else { yellowProjectile = proj; }
-            Debug.WriteLine("rotation " + proj.rotation + " dir " + direction);
+            if (isBlue) {
+                blueProjectile = proj;
+                SoundHandler.PlaySoundEffectDecay(0, pitch: -0.2f, duration: 1.11f);
+            }
+            else { 
+                yellowProjectile = proj;
+                SoundHandler.PlaySoundEffectDecay(0, pitch: 0.2f, duration: 0.8f);
+            }
+            
         }
         public bool TileHasDisabledCollision(Point tile, Point inDirection) 
         {
@@ -90,7 +96,7 @@ namespace MGSimpelFysik
             foreach ( Portal portal in parr)
             {
                 if (portal == null) continue;
-                if (portal.tile == tile && portal.inDirection == inDirection)  return true;
+                if (portal.tile == tile && portal.inDirection == inDirection && GetLinkedPortal(portal) != null) return true;
             }
             return false; 
         } 
@@ -112,12 +118,14 @@ namespace MGSimpelFysik
                 if (portal == null) continue;
                 Point origin = Tilemap.TileTOPosCenterP(portal.tile);
 
+                Color col = portal == portalB ? blueColor : yellowColor; //fråga anders om bättre sätt, indexerad for loop? inkludera färg i portal klassen?
+
                 spriteBatch.Draw(
                    game.bluePortalFrameTexture,
                    new Rectangle(origin.X, origin.Y, tileSize, tileSize),
                    null,
-                   blueColor,
-                   portal.orientation,
+                   col,
+                   -MathF.Atan2(portal.inDirection.X, portal.inDirection.Y),
                    new Vector2(4, 4),
                    portal.flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
                    0
