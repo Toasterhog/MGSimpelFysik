@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -21,12 +22,16 @@ namespace MGSimpelFysik
         private Point blueAimStart;
         private Point yellowAimStart;
 
+        public SoundEffect shootSE;
+        public SoundEffect openingPortalSE;
+
         private Texture2D tileSetTexture;
         private Texture2D dungeonTexture;
         private Texture2D goombaTexture;
         private Texture2D goalTexture;
         private Texture2D blueProjectileTexture;
         //private Texture2D yellowProjectileTexture;
+        public Texture2D bluePortalFrameTexture;
 
 
         private AnimatedSprite goombaAnim;
@@ -38,7 +43,7 @@ namespace MGSimpelFysik
         private PhysicalEntity goomba;
         public Tilemap tilemap;
         public Physics physicsWorld;
-        public Portal portalSystem;
+        public PortalHandler portalSystem;
 
         public List<IDrawable> visuals = new List<IDrawable>();
 
@@ -59,15 +64,25 @@ namespace MGSimpelFysik
             dungeonTexture = Content.Load<Texture2D>("dungeon");
             goombaTexture = Content.Load<Texture2D>("goomba");
             goalTexture = Content.Load<Texture2D>("goalblob_8px");
-            blueProjectileTexture = Content.Load<Texture2D>("projectile"); 
+            blueProjectileTexture = Content.Load<Texture2D>("projectile");
             //yellowProjectileTexture = Content.Load<Texture2D>("dungeon");
+            bluePortalFrameTexture = Content.Load<Texture2D>("portalGlow");
+
+            shootSE = Content.Load<SoundEffect>("Menu_Select_01");
+            openingPortalSE = Content.Load<SoundEffect>("WarpDrive_00");
         }
 
         protected override void Initialize()
         {
-            
-            base.Initialize(); //base.init calls LoadContent
+            //Debug.WriteLine("atan: " + MathF.Atan2(1, 0));
+            //Debug.WriteLine("atan: " + MathF.Atan2(0, 1));
+            //Debug.WriteLine("atan: " + MathF.Atan2(-1, 0));
+            //Debug.WriteLine("atan: " + MathF.Atan2(0, -1));
 
+            base.Initialize(); //base.init calls LoadContent
+            
+            SoundHandler.innitNoises(new SoundEffect[] {shootSE, openingPortalSE} );
+            portalSystem = new PortalHandler(this);
             blueProjectileAnim = new AdvancedSprite(blueProjectileTexture, new Point(12,7));
             yellowProjectileAnim = new AdvancedSprite(blueProjectileTexture, new Point(12, 7));
             blueProjectileAnim.Delay = 50;
@@ -77,12 +92,12 @@ namespace MGSimpelFysik
             tilemap = new Tilemap(tileSetTexture,8);
             tilemap.goalsprite = goalAnim;
             goombaAnim = new AnimatedSprite(goombaTexture, 16);
-            goomba = new PhysicalEntity(tilemap, null, goombaAnim, 16, position: new Vector2(300,300), scale: 4);
+            goomba = new PhysicalEntity(portalSystem, tilemap, null, goombaAnim, 16, position: new Vector2(300,300), scale: 4);
             goomba.origin = new Vector2(8, 12);
             physicsWorld = new Physics(windowWidth, windowHeight, tilemap);
             physicsWorld.entities.Add(goomba);
             levelBuilder = new LevelBuilder(tilemap, dungeonTexture);
-            portalSystem = new Portal(this);
+            
 
             levelBuilder.SetTilesFromImage(GraphicsDevice, tilemap);
         }
@@ -102,6 +117,7 @@ namespace MGSimpelFysik
             yellowProjectileAnim.Update(gameTime);
 
             physicsWorld.Update(gameTime);
+            SoundHandler.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -111,8 +127,9 @@ namespace MGSimpelFysik
             GraphicsDevice.Clear(Color.FromNonPremultiplied(16,16,16,255));
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-            tilemap.Draw(_spriteBatch);
             goomba.Draw(_spriteBatch);
+            tilemap.Draw(_spriteBatch);
+            portalSystem.Draw(_spriteBatch);
 
             foreach (IDrawable visual in visuals)
             {
@@ -142,21 +159,27 @@ namespace MGSimpelFysik
                     goomba.velocity *= 100f;
                 }
             }
-            //----- direction from goomba ----
-            if (prevms.LeftButton == ButtonState.Pressed && ms.LeftButton == ButtonState.Released)
+            else
             {
-                
-                Vector2 dir = new Vector2(ms.Position.X, ms.Position.Y ) - goomba.position;
-                portalSystem.SpawnProjectile(true, goomba.position, dir);
-                //Debug.WriteLine("blue proj spawned");
-            }
+                //----- direction from goomba ----
+                if (prevms.LeftButton == ButtonState.Pressed && ms.LeftButton == ButtonState.Released)
+                {
 
-            if (prevms.RightButton == ButtonState.Pressed && ms.RightButton == ButtonState.Released)
-            {
-                Vector2 dir = new Vector2(ms.Position.X, ms.Position.Y) - goomba.position;
-                portalSystem.SpawnProjectile(false, goomba.position, dir);
-                //Debug.WriteLine("yellow proj spawned");
+                    Vector2 dir = new Vector2(ms.Position.X, ms.Position.Y) - goomba.position;
+                    portalSystem.SpawnProjectile(true, goomba.position, dir);
+                    //Debug.WriteLine("blue proj spawned");
+                    
+                }
+
+                if (prevms.RightButton == ButtonState.Pressed && ms.RightButton == ButtonState.Released)
+                {
+                    Vector2 dir = new Vector2(ms.Position.X, ms.Position.Y) - goomba.position;
+                    portalSystem.SpawnProjectile(false, goomba.position, dir);
+                    //Debug.WriteLine("yellow proj spawned");
+                    
+                }
             }
+            
             //---- direction from drag press and hold ----
             //if (ms.LeftButton == ButtonState.Pressed && prevms.LeftButton == ButtonState.Released) { blueAimStart = ms.Position; }
             //else if (prevms.LeftButton == ButtonState.Pressed && ms.LeftButton == ButtonState.Released)

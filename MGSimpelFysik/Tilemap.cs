@@ -9,7 +9,8 @@ namespace MGSimpelFysik
     public class Tilemap : IDrawable
     {
         private int[,] tiles = new int[20, 12];
-        private int tileSize = 50;
+        private static int tileSize = 50;
+        public static int TileSize { get { return tileSize; } }
         private Texture2D tileset;
         private Rectangle[] sourceRects;
         public AnimatedSprite goalsprite;
@@ -25,10 +26,24 @@ namespace MGSimpelFysik
             }
         }
 
-        public Point PosToTile(Vector2 pos)
+        public static Point PosToTile(Vector2 pos)
         {
             return new Point((int)pos.X / tileSize, (int)pos.Y / tileSize);
         }
+        public static Vector2 TileTOPos(Point coord)
+        {
+            return new Vector2(coord.X * tileSize, coord.Y * tileSize);
+        }
+        public static Vector2 TileTOPosCenter(Point coord)
+        {
+            return new Vector2(coord.X * tileSize, coord.Y * tileSize) + new Vector2(tileSize / 2f, tileSize / 2f);
+        }
+        public static Point TileTOPosCenterP(Point coord) //needs even tileSize
+        {
+            return new Point(coord.X * tileSize, coord.Y * tileSize) + new Point(tileSize / 2, tileSize / 2);
+        }
+
+
         public int GetTileType(Vector2 pos)
         {
             Point coord = PosToTile(pos);
@@ -39,6 +54,11 @@ namespace MGSimpelFysik
             coord = Mathlike.WrapP(coord, new Point(20, 12));
             return tiles[coord.X, coord.Y];
         }
+        //public bool GetTileCollision(Point coord)
+        //{
+        //    int tileType = GetTileType(coord);
+        //    return
+        //}
         public void SetTiles(int[,] newTiles)
         {
             if (tiles.GetLength(0) == newTiles.GetLength(0) && tiles.GetLength(1) == newTiles.GetLength(1))

@@ -1,9 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Direct2D1.Effects;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MGSimpelFysik
@@ -19,56 +22,114 @@ namespace MGSimpelFysik
         protected float bounciness = 0.2f;
         protected float slidyness = 0.8f;
         protected float simulationSpeed = 1f;
+        protected PortalHandler portalSys;
 
-        public PhysicalEntity(Tilemap tilemap, float collisionradious = 10) : base()
+        public PhysicalEntity(PortalHandler portalSystem, Tilemap tilemap, float collisionradious = 10) : base()
         {
             this.collisionradious = collisionradious;
             this.tilemap = tilemap;
+            portalSys = portalSystem;
         }
-        public PhysicalEntity(Tilemap tilemap, Texture2D texture = null, AnimatedSprite animatedSprite = null, float collisionradious = 10, Vector2? position = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
+        public PhysicalEntity(PortalHandler portalSystem, Tilemap tilemap, Texture2D texture = null, AnimatedSprite animatedSprite = null, float collisionradious = 10, Vector2? position = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
         : base(texture, animatedSprite, position, rotation, scale, spriteEffects, layerDepth)
         {
             this.collisionradious = collisionradious; //får inte vara mer än 25 (collrad/2)
             this.tilemap = tilemap;
+            this.portalSys = portalSystem;
         }
 
         public void Update(GameTime gameTime)
         {
 
         }
+
+        
+
         public virtual void PhysicsUpdate(GameTime gameTime)
         {
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds * simulationSpeed / 1000;
-            const float tileSize = 50;
+            float tileSize = Tilemap.TileSize;
+            Point[] LDRU = [new Point(1, 0), new Point(0, 1), new Point(-1, 0), new Point(0, -1)];
 
             velocity += gravity * delta;
             velocity = new Vector2(MathF.Min(MathF.Max(velocity.X, -collisionradious / delta), collisionradious / delta), MathF.Min(MathF.Max(velocity.Y, -collisionradious / delta), collisionradious / delta));
             position += velocity * delta;
 
-            Point tpos = tilemap.PosToTile(position);
-            if (tilemap.GetTileType(new Point(tpos.X, tpos.Y)) >= 0) //inside solid reaction
+            Point tpos = Tilemap.PosToTile(position);
+
+
+            if (tilemap.GetTileType(tpos) >= 0) //inside solid reaction
             {
-                velocity = velocity * 0.9f;
-                return;
+                Point oldtpos = Tilemap.PosToTile(position - velocity * delta);
+
+                if(portalSys.TileHasDisabledCollision(oldtpos, tpos - oldtpos))
+                {
+                    Teleport(portalSys.GetPortalFromTile(oldtpos));
+                    Debug.WriteLine("teleporting");
+                }
             }
 
+            foreach (Point tileOffset in LDRU)
+            {
+                Point collTile = tpos + tileOffset;
+                if (tilemap.GetTileType(collTile) >= 0)
+                {
+                    if (portalSys.TileHasDisabledCollision(tpos, tileOffset) )
+                    {
+                        continue;
+                    }
+                    Vector2 tileOffsetVector = tileOffset.ToVector2();
+                    //tror funkar med diagonaler
+                    Vector2 boundry = tileOffsetVector * tileSize * 0.5f;
+                    Vector2 localPos = Mathlike.WrapV(position, new Vector2(tileSize, tileSize)) - new Vector2(tileSize / 2f, tileSize / 2f);
+                    Vector2 entityBoundry = localPos + tileOffsetVector * collisionradious;
+                    float overlap = Mathlike.ProjectionFactor(entityBoundry,boundry);
+                    if (overlap > 1)
+                    {
+                        ReactVelocity(-tileOffsetVector);
+                        //ai
+                        float overflowPixels = (overlap - 1) * collisionradious;
+                        position -= tileOffsetVector * overflowPixels;
+                        //end ai
+                    }
+                }
+            }
+            //----------------------------------------------------------------
+            //------------byter ut typ allt under mot foreach ovan------------
+            //----------------------------------------------------------------
+            /*
+             
             #region axis aligned collision detection
+
 
             if (tilemap.GetTileType(new Point(tpos.X, tpos.Y + 1)) >= 0) //down
             {
-                float boundry = (tpos.Y + 1) * tileSize - collisionradious;
-                if (position.Y > boundry)
+                bool noPortalHinderingColl = true;
+                if(portalSys.bluePortalsExists && portalSys.bluePortalFrame.coord == tpos && portalSys.bluePortalFrame.side == 0)
                 {
-                    position.Y = boundry;
-                    if(velocity.Y < 150.0f) //nått mojs idk
+                    noPortalHinderingColl = false;
+                }
+                else if (portalSys.yellowPortalsExists && portalSys.yellowPortalFrame.coord == tpos && portalSys.yellowPortalFrame.side == 0)
+                {
+                    noPortalHinderingColl = false;
+                }
+                if (noPortalHinderingColl)
+                {
+                    float boundry = (tpos.Y + 1) * tileSize - collisionradious;
+                    if (position.Y > boundry)
                     {
-                        ReactVelocityExtraParam(new Vector2(0, -1), 0, -1); //velocity.Y = MathF.Min(velocity.Y, -velocity.Y*0.6f);
-                    }
-                    else
-                    {
-                        ReactVelocity(new Vector2(0, -1));
+                        position.Y = boundry;
+                        if (velocity.Y < 150.0f) //nått mojs idk
+                        {
+                            ReactVelocityExtraParam(new Vector2(0, -1), 0, -1); //velocity.Y = MathF.Min(velocity.Y, -velocity.Y*0.6f);
+                        }
+                        else
+                        {
+                            ReactVelocity(new Vector2(0, -1));
+                        }
                     }
                 }
+                
             }
             if (tilemap.GetTileType(new Point(tpos.X - 1, tpos.Y)) >= 0) //left
             {
@@ -233,13 +294,13 @@ namespace MGSimpelFysik
 
             #endregion
 
-
-
+            */
         }
 
 
         private void ReactVelocity(Vector2 normal)
         {
+            normal.Normalize();
             float dot = Vector2.Dot(velocity, normal);
             if (dot > 0) return;
             Vector2 velNorm = normal * -dot * bounciness;
@@ -269,6 +330,32 @@ namespace MGSimpelFysik
         //    velocity = velNorm + velPara;
 
         //}
+
+
+        public void Teleport(Portal entryPortal)
+        {
+            int tilesize = Tilemap.TileSize;
+            Portal destPortal = portalSys.GetLinkedPortal(entryPortal);
+
+            Vector2 localPos = Mathlike.WrapV(position, new Vector2(tilesize, tilesize)) - new Vector2(tilesize / 2f, tilesize / 2f);
+            Point inDir = entryPortal.inDirection;
+            Point outDir = Point.Zero - destPortal.inDirection; //herererere
+
+            float angleIn = MathF.Atan2(inDir.X , inDir.Y);
+            float angleOut = MathF.Atan2(outDir.X, outDir.Y);
+            float rotation = -(angleOut - angleIn);
+            localPos.Rotate(rotation); //fel för positionen
+            Vector2 destPos = Tilemap.TileTOPosCenter(destPortal.tile) + localPos;
+
+            velocity.Rotate(rotation);
+            position = destPos;
+
+        }
+
+
+
+       
+
 
     }
 }

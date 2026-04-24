@@ -8,14 +8,14 @@ namespace MGSimpelFysik
 {
     public class Projectile : PhysicalEntity 
     {
-        private Portal portal;
+        private PortalHandler portal;
         private bool isBlue;
-        private bool isLeft = false; //kanske inte orkar ha med //ie flipped
+        public bool isLeft = false; //kanske inte orkar ha med //ie flipped
         const int COLLRAD = 5;
         const float SPEED = 900;
 
-        public Projectile(Portal portal, bool typeIsBlue, Vector2 direction, Tilemap tilemap, Texture2D texture = null, AnimatedSprite animatedSprite = null, float collisionradious = 10, Vector2? position = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
-        : base(tilemap, texture, animatedSprite, COLLRAD, position, rotation, 3, spriteEffects, layerDepth)
+        public Projectile(PortalHandler portal, bool typeIsBlue, Vector2 direction, Tilemap tilemap, Texture2D texture = null, AnimatedSprite animatedSprite = null, float collisionradious = 10, Vector2? position = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None, float layerDepth = 0)
+        : base(portal, tilemap, texture, animatedSprite, COLLRAD, position, rotation, 3, spriteEffects, layerDepth)
         {
             isBlue = typeIsBlue;
             this.portal = portal;
@@ -30,35 +30,43 @@ namespace MGSimpelFysik
             portal.RemoveProjectile(isBlue);
         }
 
-        private void HitReactsion(Point tile, Point collidedTile)
+        private void HitReaction(Point tile, Point collidedTile)
         {
-            Debug.WriteLine("proj hit");
-            if(tilemap.GetTileType(collidedTile) == 1) //white
+            //Debug.WriteLine("proj hit");
+            //if(tilemap.GetTileType(collidedTile) == 1) //white
+            //{
+            //    Point normal = tile - collidedTile;
+            //    int orientation = -1;
+            //    switch (normal)
+            //    {
+            //        case Point(0, -1):
+            //            orientation = 0;
+            //            break;
+            //        case Point(1, 0):
+            //            orientation = 1;
+            //            break;
+            //        case Point(0, 1):
+            //            orientation = 2;
+            //            break;
+            //        case Point(-1, 0):
+            //            orientation = 3;
+            //            break;
+            //        default:
+            //            orientation = -1;
+            //            break;
+            //    }
+            //    if(orientation != -1)
+            //    {
+            //        portal.SetPortal(tile, orientation, isLeft, isBlue);
+            //    }
+            //}
+
+            Point diff = tile - collidedTile;
+            bool tilesAreAxisAligned = diff.X == 0 || diff.Y == 0 ? true : false;
+
+            if (tilesAreAxisAligned && tilemap.GetTileType(collidedTile) == 1) //white
             {
-                Point normal = tile - collidedTile;
-                int orientation = -1;
-                switch (normal)
-                {
-                    case Point(0, -1):
-                        orientation = 0;
-                        break;
-                    case Point(1, 0):
-                        orientation = 1;
-                        break;
-                    case Point(0, 1):
-                        orientation = 2;
-                        break;
-                    case Point(-1, 0):
-                        orientation = 3;
-                        break;
-                    default:
-                        orientation = -1;
-                        break;
-                }
-                if(orientation != -1)
-                {
-                    portal.SetPortal(tile, orientation, false, isBlue);
-                }
+                portal.SetPortal(tile, collidedTile - tile, isLeft, isBlue);
             }
             RemoveSelf();
         }
@@ -69,18 +77,18 @@ namespace MGSimpelFysik
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds * simulationSpeed / 1000;
             //const float tileSize = 50;
 
-            Point oldTileC = tilemap.PosToTile(position);
+            Point oldTileC = Tilemap.PosToTile(position);
 
             //velocity += gravity * delta;
             //velocity = new Vector2(MathF.Min(MathF.Max(velocity.X, -collisionradious / delta), collisionradious / delta), MathF.Min(MathF.Max(velocity.Y, -collisionradious / delta), collisionradious / delta));
             position += velocity * delta;
 
-            Point newTileC = tilemap.PosToTile(position);
+            Point newTileC = Tilemap.PosToTile(position);
 
             if (newTileC == oldTileC) return;
             if(tilemap.GetTileType(newTileC) >= 0)
             {
-                HitReactsion(oldTileC, newTileC);
+                HitReaction(oldTileC, newTileC);
             }
         }
 

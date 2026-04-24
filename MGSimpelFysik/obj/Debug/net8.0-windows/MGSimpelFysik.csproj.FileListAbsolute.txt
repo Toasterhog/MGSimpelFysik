@@ -98,3 +98,17 @@ C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelF
 C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\obj\Debug\net8.0-windows\MGSimpelFysik.genruntimeconfig.cache
 C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\obj\Debug\net8.0-windows\ref\MGSimpelFysik.dll
 C:\Users\Ruben\Source\Repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\projectile.xnb
+C:\Users\Ruben\Source\Repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\Menu_Select_01.xnb
+C:\Users\Ruben\Source\Repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\WarpDrive_00.xnb
+C:\Users\Ruben\Source\Repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\portalGlow.xnb
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\Menu_Select_01.xnb
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\portalGlow.xnb
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\projectile.xnb
+C:\Users\07RUIVA\OneDrive - Göliska EDU\programmering 2\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\WarpDrive_00.xnb
+C:\Users\rivne\source\repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\goalblob_8px.xnb
+C:\Users\rivne\source\repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\Menu_Select_01.xnb
+C:\Users\rivne\source\repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\portalGlow.xnb
+C:\Users\rivne\source\repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\projectile.xnb
+C:\Users\rivne\source\repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\tilemap_32px.xnb
+C:\Users\rivne\source\repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\tilemap_8px.xnb
+C:\Users\rivne\source\repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\WarpDrive_00.xnb

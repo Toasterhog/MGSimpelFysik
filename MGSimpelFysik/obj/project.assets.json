@@ -4159,24 +4159,31 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ruben\\.nuget\\packages\\": {}
+    "C:\\Users\\rivne\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ruben\\Source\\Repos\\MGSimpelFysik\\MGSimpelFysik\\MGSimpelFysik.csproj",
+      "projectUniqueName": "C:\\Users\\rivne\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\MGSimpelFysik.csproj",
       "projectName": "MGSimpelFysik",
-      "projectPath": "C:\\Users\\Ruben\\Source\\Repos\\MGSimpelFysik\\MGSimpelFysik\\MGSimpelFysik.csproj",
-      "packagesPath": "C:\\Users\\Ruben\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ruben\\Source\\Repos\\MGSimpelFysik\\MGSimpelFysik\\obj\\",
+      "projectPath": "C:\\Users\\rivne\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\MGSimpelFysik.csproj",
+      "packagesPath": "C:\\Users\\rivne\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\rivne\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Ruben\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\rivne\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0-windows"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4194,7 +4201,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0-windows7.0": {
@@ -4228,7 +4236,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.419/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
