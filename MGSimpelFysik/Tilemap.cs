@@ -10,17 +10,17 @@ namespace MGSimpelFysik
     {
         private int[,] tiles = new int[20, 12];
         private static int tileSize = 50;
-        public static int TileSize { get { return tileSize; } }
+        public static int TileSize { get { return tileSize; } set { tileSize = value; } }
         private Texture2D tileset;
         private Rectangle[] sourceRects;
         public AnimatedSprite goalsprite;
 
-        public Tilemap(Texture2D _tileSet, int? _tileSetSourceSize = null)
+        public Tilemap(Texture2D _tileSet, int _tileSetSourceSize = -1)
         {
             tileset = _tileSet;
-            int tileSetSourceSize = _tileSetSourceSize ?? _tileSet.Height; //assume square
+            int tileSetSourceSize = _tileSetSourceSize > 0 ? _tileSetSourceSize : _tileSet.Height ; //assume square
             sourceRects = new Rectangle[tileset.Width / tileSetSourceSize];
-            for (int i = 0; i * _tileSetSourceSize < _tileSet.Width; i++)
+            for (int i = 0; i * tileSetSourceSize < tileset.Width; i++)
             {
                 sourceRects[i] = new Rectangle(i * tileSetSourceSize, 0, tileSetSourceSize, tileset.Height);
             }

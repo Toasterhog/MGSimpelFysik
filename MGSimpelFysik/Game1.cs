@@ -60,7 +60,7 @@ namespace MGSimpelFysik
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            tileSetTexture = Content.Load<Texture2D>("tilemap_8px");
+            tileSetTexture = Content.Load<Texture2D>("tilemap_32px");
             dungeonTexture = Content.Load<Texture2D>("dungeon");
             goombaTexture = Content.Load<Texture2D>("goomba");
             goalTexture = Content.Load<Texture2D>("goalblob_8px");
@@ -74,11 +74,7 @@ namespace MGSimpelFysik
 
         protected override void Initialize()
         {
-            //Debug.WriteLine("atan: " + MathF.Atan2(1, 0));
-            //Debug.WriteLine("atan: " + MathF.Atan2(0, 1));
-            //Debug.WriteLine("atan: " + MathF.Atan2(-1, 0));
-            //Debug.WriteLine("atan: " + MathF.Atan2(0, -1));
-
+            
             base.Initialize(); //base.init calls LoadContent
             
             SoundHandler.innitNoises(new SoundEffect[] {shootSE, openingPortalSE} );
@@ -89,7 +85,7 @@ namespace MGSimpelFysik
             yellowProjectileAnim.Delay = 140;
             goalAnim = new AnimatedSprite(goalTexture, 8);
             goalAnim.Delay = 120;
-            tilemap = new Tilemap(tileSetTexture,8);
+            tilemap = new Tilemap(tileSetTexture); //had param 8
             tilemap.goalsprite = goalAnim;
             goombaAnim = new AnimatedSprite(goombaTexture, 16);
             goomba = new PhysicalEntity(portalSystem, tilemap, null, goombaAnim, 16, position: new Vector2(300,300), scale: 4);
@@ -151,6 +147,7 @@ namespace MGSimpelFysik
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
                     goomba.position = new Vector2(ms.Position.X, ms.Position.Y);
+                    goomba.velocity = Vector2.Zero;
                 }
                 else if (prevms.LeftButton == ButtonState.Pressed)
                 {
@@ -179,7 +176,7 @@ namespace MGSimpelFysik
                     
                 }
             }
-            
+
             //---- direction from drag press and hold ----
             //if (ms.LeftButton == ButtonState.Pressed && prevms.LeftButton == ButtonState.Released) { blueAimStart = ms.Position; }
             //else if (prevms.LeftButton == ButtonState.Pressed && ms.LeftButton == ButtonState.Released)
@@ -198,11 +195,29 @@ namespace MGSimpelFysik
             //    portalSystem.SpawnProjectile(false, goomba.position, dir);
             //    Debug.WriteLine("yellow proj spawned");
             //}
-
+            if (ks.IsKeyDown(Keys.U) && prevks.IsKeyUp(Keys.U)) { ChangeWindowSize(); }
 
             prevks = ks;
             prevms = ms;
         }
+
+        public void ChangeWindowSize(int w = 1500, int h = 1500)
+        {
+            w = 80 * 20;
+            h = 80 * 12;
+            w = Mathlike.ClampI(w, 100, 2000);
+            h = Mathlike.ClampI(h, 100, 2000);
+            _graphics.PreferredBackBufferWidth = w;
+            _graphics.PreferredBackBufferHeight = h;
+            _graphics.ApplyChanges();
+            if (physicsWorld != null)
+            {
+                physicsWorld.gameWindowWidth = w;
+                physicsWorld.gameWindowHeight = h;
+            }
+            //Tilemap.TileSize = 80;
+        }
+
     }
 
     public static class RandomInfo

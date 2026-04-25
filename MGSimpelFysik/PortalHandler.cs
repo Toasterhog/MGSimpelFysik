@@ -19,10 +19,17 @@ namespace MGSimpelFysik
         public PortalHandler(Game1 game)
         {
             this.game = game;
+            tileSize = Tilemap.TileSize;
         }
         public void SetPortal(Point tile, Point indir, bool flipped, bool isBlue)
         {
-            Debug.WriteLine("portal place");
+            Portal[] parr = [portalB, portalY];
+            foreach (Portal portal in parr)
+            {
+                if (portal == null) continue;
+                if (portal.tile == tile && portal.inDirection == indir) return;
+            }
+            
             if (isBlue)
             {
                 if (portalB != null) { DestroyPortal(portalB); }
@@ -54,7 +61,7 @@ namespace MGSimpelFysik
         }
         public void SpawnProjectile(bool isBlue, Vector2 spawnPoint, Vector2 direction)
         {
-            direction = Vector2.Normalize(direction);
+            direction.Normalize();
 
             if (isBlue && blueProjectile != null)
             {
@@ -76,7 +83,7 @@ namespace MGSimpelFysik
                 spriteEffects: direction.X < 0 ? SpriteEffects.FlipVertically : SpriteEffects.None
             );
             proj.colorMultiplier = isBlue ? blueColor : yellowColor;
-            proj.isLeft = direction.X < 0 ? true : false;
+            proj.flipped = direction.X < 0 ? true : false;
 
             game.physicsWorld.AddEntity(proj);
             game.visuals.Add(proj as IDrawable);
@@ -100,13 +107,13 @@ namespace MGSimpelFysik
             }
             return false; 
         } 
-        public Portal GetPortalFromTile(Point tile)
+        public Portal GetPortalFromTile(Point tile, Point inDir)
         {
             Portal[] parr = [portalB, portalY];
             foreach (Portal portal in parr)
             {
                 if (portal == null) continue;
-                if (portal.tile == tile ) return portal;
+                if (portal.tile == tile && portal.inDirection == inDir) return portal;
             }
             return null;
         }

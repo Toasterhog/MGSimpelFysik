@@ -11,8 +11,8 @@ namespace MGSimpelFysik
     {
         public List<PhysicalEntity> entities = new List<PhysicalEntity>();
         private Tilemap tilemap;
-        private int gameWindowWidth = 500;
-        private int gameWindowHeight = 500;
+        public int gameWindowWidth = 500;
+        public int gameWindowHeight = 500;
         public List<PhysicalEntity> pEntitiesToAdd = new List<PhysicalEntity>();
         public List<PhysicalEntity> pEntitiesToRemove = new List<PhysicalEntity>();
 
@@ -45,9 +45,10 @@ namespace MGSimpelFysik
             }
             pEntitiesToRemove.Clear();
 
+            float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
             foreach (PhysicalEntity entity in entities)
             {
-                entity.PhysicsUpdate(gameTime);
+                entity.PhysicsUpdate(delta);
 
              
                 float posX = entity.position.X; //wrapa

@@ -13,8 +13,8 @@ namespace MGSimpelFysik
 {
     public class PhysicalEntity : Entity
     {
-        public Vector2 velocity = new Vector2(100f, -10f);
-        public Vector2 gravity = new Vector2(0, 800f); // 16 tiles per sekund^2
+        public Vector2 velocity = Vector2.Zero; // px/s
+        public Vector2 gravity = new Vector2(0, 800f); // 16 tiles per sekund^2 | px/s^2
         protected float collisionradious = 10;
         protected  Tilemap tilemap;
         protected enum CollisionShapeType { circle, square }; //meh datatyp
@@ -23,6 +23,10 @@ namespace MGSimpelFysik
         protected float slidyness = 0.8f;
         protected float simulationSpeed = 1f;
         protected PortalHandler portalSys;
+
+        float tileSize = Tilemap.TileSize;
+        protected Point[] axisAlignedOffsets = [new Point(1, 0), new Point(0, 1), new Point(-1, 0), new Point(0, -1)];
+        protected Point[] diagonalOffsets = [new Point(1, 1), new Point(-1, 1), new Point(-1, -1), new Point(1, -1)];
 
         public PhysicalEntity(PortalHandler portalSystem, Tilemap tilemap, float collisionradious = 10) : base()
         {
@@ -45,14 +49,10 @@ namespace MGSimpelFysik
 
         
 
-        public virtual void PhysicsUpdate(GameTime gameTime)
+        public virtual void PhysicsUpdate(float delta)
         {
-            float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds * simulationSpeed / 1000;
-            float tileSize = Tilemap.TileSize;
-            Point[] LDRU = [new Point(1, 0), new Point(0, 1), new Point(-1, 0), new Point(0, -1)];
-
             velocity += gravity * delta;
-            velocity = new Vector2(MathF.Min(MathF.Max(velocity.X, -collisionradious / delta), collisionradious / delta), MathF.Min(MathF.Max(velocity.Y, -collisionradious / delta), collisionradious / delta));
+            ClampVelocity(delta);
             position += velocity * delta;
 
             Point tpos = Tilemap.PosToTile(position);
@@ -61,15 +61,21 @@ namespace MGSimpelFysik
             if (tilemap.GetTileType(tpos) >= 0) //inside solid reaction
             {
                 Point oldtpos = Tilemap.PosToTile(position - velocity * delta);
-
-                if(portalSys.TileHasDisabledCollision(oldtpos, tpos - oldtpos))
+                Point inDir = tpos - oldtpos;
+                if (portalSys.TileHasDisabledCollision(oldtpos, inDir))
                 {
-                    Teleport(portalSys.GetPortalFromTile(oldtpos));
-                    Debug.WriteLine("teleporting");
+                    Teleport(portalSys.GetPortalFromTile(oldtpos, inDir));
+                    tpos = Tilemap.PosToTile(position);
+                    AfterTeleportLogic();
+                }
+                else
+                {
+                    velocity *= 1.1f;
+                    return;
                 }
             }
 
-            foreach (Point tileOffset in LDRU)
+            foreach (Point tileOffset in axisAlignedOffsets)
             {
                 Point collTile = tpos + tileOffset;
                 if (tilemap.GetTileType(collTile) >= 0)
@@ -79,21 +85,37 @@ namespace MGSimpelFysik
                         continue;
                     }
                     Vector2 tileOffsetVector = tileOffset.ToVector2();
-                    //tror funkar med diagonaler
                     Vector2 boundry = tileOffsetVector * tileSize * 0.5f;
                     Vector2 localPos = Mathlike.WrapV(position, new Vector2(tileSize, tileSize)) - new Vector2(tileSize / 2f, tileSize / 2f);
                     Vector2 entityBoundry = localPos + tileOffsetVector * collisionradious;
-                    float overlap = Mathlike.ProjectionFactor(entityBoundry,boundry);
-                    if (overlap > 1)
+                    //float overlap = Mathlike.ProjectionFactor(entityBoundry, boundry) - 1;
+                    float overlap = Vector2.Dot(entityBoundry,boundry) / (tileSize/2) - (tileSize/2);
+                    if (overlap > 0)
                     {
-                        ReactVelocity(-tileOffsetVector);
-                        //ai
-                        float overflowPixels = (overlap - 1) * collisionradious;
-                        position -= tileOffsetVector * overflowPixels;
-                        //end ai
+                        CollisionReactionAxisAligned(tpos, -tileOffsetVector, overlap);
                     }
                 }
             }
+
+            foreach (Point tileOffset in diagonalOffsets)
+            {
+                Point collTile = tpos + tileOffset;
+                if (tilemap.GetTileType(collTile) >= 0)
+                {
+                    Vector2 tileOffsetVector = tileOffset.ToVector2();
+                    Vector2 corner = tileOffsetVector * tileSize * 0.5f;
+                    Vector2 localPos = Mathlike.WrapV(position, new Vector2(tileSize, tileSize)) - new Vector2(tileSize / 2f, tileSize / 2f);
+                    Vector2 normalAndDistance = localPos - corner;
+                    float overlap = collisionradious - normalAndDistance.Length();
+                    if (overlap > 0)
+                    {
+                        normalAndDistance.Normalize();
+                        CollisionReactionDiagonal(tpos, normalAndDistance, overlap);
+                        
+                    }
+                }
+            }
+
             //----------------------------------------------------------------
             //------------byter ut typ allt under mot foreach ovan------------
             //----------------------------------------------------------------
@@ -297,10 +319,19 @@ namespace MGSimpelFysik
             */
         }
 
+        protected virtual void CollisionReactionAxisAligned(Point tile, Vector2 normal, float overlap)
+        {
+            ReactVelocity(normal);
+            ReactPosition(normal, overlap);
+        }
+        protected virtual void CollisionReactionDiagonal(Point tile, Vector2 normal, float overlap)
+        {
+            ReactVelocity(normal);
+            ReactPosition(normal, overlap);
+        }
 
         private void ReactVelocity(Vector2 normal)
         {
-            normal.Normalize();
             float dot = Vector2.Dot(velocity, normal);
             if (dot > 0) return;
             Vector2 velNorm = normal * -dot * bounciness;
@@ -331,30 +362,40 @@ namespace MGSimpelFysik
 
         //}
 
+        private void ReactPosition(Vector2 normal, float overlap)
+        {
+            position += normal * overlap;
+        }
 
         public void Teleport(Portal entryPortal)
         {
-            int tilesize = Tilemap.TileSize;
             Portal destPortal = portalSys.GetLinkedPortal(entryPortal);
+            bool doAFlip = entryPortal.flipped != destPortal.flipped;
 
-            Vector2 localPos = Mathlike.WrapV(position, new Vector2(tilesize, tilesize)) - new Vector2(tilesize / 2f, tilesize / 2f);
+            Vector2 localPos = Mathlike.WrapV(position, new Vector2(tileSize, tileSize)) - new Vector2(tileSize / 2f, tileSize / 2f);
             Point inDir = entryPortal.inDirection;
-            Point outDir = Point.Zero - destPortal.inDirection; //herererere
+            Point outDir = Point.Zero - destPortal.inDirection;
 
-            float angleIn = MathF.Atan2(inDir.X , inDir.Y);
-            float angleOut = MathF.Atan2(outDir.X, outDir.Y);
-            float rotation = -(angleOut - angleIn);
-            localPos.Rotate(rotation); //fel för positionen
+            float angleIn = MathF.Atan2(inDir.Y , inDir.X); //X Y was flipped on both
+            float angleOut = MathF.Atan2(outDir.Y, outDir.X);
+            float rotation = angleOut - angleIn;
+            localPos.Rotate(rotation);
+            if (doAFlip) { localPos = Vector2.Reflect(localPos, Vector2.Rotate(outDir.ToVector2(),MathF.PI/2) ); }
             Vector2 destPos = Tilemap.TileTOPosCenter(destPortal.tile) + localPos;
 
             velocity.Rotate(rotation);
+            if (doAFlip) { velocity = Vector2.Reflect(velocity, Vector2.Rotate(outDir.ToVector2(), MathF.PI / 2)); }
             position = destPos;
 
         }
 
+        protected virtual void ClampVelocity(float delta)
+        {
+            velocity = new Vector2(MathF.Min(MathF.Max(velocity.X, -collisionradious / delta), collisionradious / delta), MathF.Min(MathF.Max(velocity.Y, -collisionradious / delta), collisionradious / delta));
 
+        }
 
-       
+        protected virtual void AfterTeleportLogic() { }
 
 
     }
