@@ -1,14 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Diagnostics;
 
 namespace MGSimpelFysik
 {
     public class PortalHandler
     {
         private Game1 game;
-        private int tileSize = 50;
+        private Random random = new Random();
         private Color blueColor = new Color(70, 85, 255);
         private Color yellowColor = new Color(255, 240, 95);
         public Projectile blueProjectile;
@@ -19,7 +18,6 @@ namespace MGSimpelFysik
         public PortalHandler(Game1 game)
         {
             this.game = game;
-            tileSize = Tilemap.TileSize;
         }
         public void SetPortal(Point tile, Point indir, bool flipped, bool isBlue)
         {
@@ -87,13 +85,15 @@ namespace MGSimpelFysik
 
             game.physicsWorld.AddEntity(proj);
             game.visuals.Add(proj as IDrawable);
+            float soundPitch = ((float)random.NextDouble() - 0.5f) * 0.4f;
+            float soundDuration = (float)random.NextDouble() + 0.3f;
             if (isBlue) {
                 blueProjectile = proj;
-                SoundHandler.PlaySoundEffectDecay(0, pitch: -0.2f, duration: 1.11f);
+                SoundHandler.PlaySoundEffectDecay(0, pitch: soundPitch - 0.2f, duration: soundDuration);
             }
             else { 
                 yellowProjectile = proj;
-                SoundHandler.PlaySoundEffectDecay(0, pitch: 0.2f, duration: 0.8f);
+                SoundHandler.PlaySoundEffectDecay(0, pitch: soundPitch + 0.2f, duration: soundDuration);
             }
             
         }
@@ -119,6 +119,7 @@ namespace MGSimpelFysik
         }
         public void Draw(SpriteBatch spriteBatch)
         {
+            int tileSize = Tilemap.TileSize;
             Portal[] toDraw = [portalB, portalY ];
             foreach (Portal portal in toDraw)
             {

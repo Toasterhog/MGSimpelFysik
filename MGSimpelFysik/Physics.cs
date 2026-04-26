@@ -10,17 +10,15 @@ namespace MGSimpelFysik
     public class Physics
     {
         public List<PhysicalEntity> entities = new List<PhysicalEntity>();
-        private Tilemap tilemap;
-        public int gameWindowWidth = 500;
-        public int gameWindowHeight = 500;
+        public int worldWidth = 500;
+        public int worldHeight = 500;
         public List<PhysicalEntity> pEntitiesToAdd = new List<PhysicalEntity>();
         public List<PhysicalEntity> pEntitiesToRemove = new List<PhysicalEntity>();
-
-        public Physics(int gameWindowWidth, int gameWindowHeight, Tilemap tilemap)
+        private float deltaMultiplier = 0.7f;
+        public Physics(int worldWidth, int worldHeight)
         {
-            this.gameWindowWidth = gameWindowWidth;
-            this.gameWindowHeight = gameWindowHeight;
-            this.tilemap = tilemap;
+            this.worldWidth = worldWidth;
+            this.worldHeight = worldHeight;
         }
 
         public void AddEntity(PhysicalEntity entity)
@@ -45,29 +43,29 @@ namespace MGSimpelFysik
             }
             pEntitiesToRemove.Clear();
 
-            float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float delta = (float)gameTime.ElapsedGameTime.TotalSeconds * deltaMultiplier;
             foreach (PhysicalEntity entity in entities)
             {
                 entity.PhysicsUpdate(delta);
 
              
                 float posX = entity.position.X; //wrapa
-                if (posX > gameWindowWidth)
+                if (posX > worldWidth)
                 {
-                    entity.position.X = posX % gameWindowWidth;
+                    entity.position.X = posX % worldWidth;
                 }
                 else if (posX < 0)
                 {
-                    entity.position.X = (posX + 5 * gameWindowWidth) % gameWindowWidth; // 5 = godtyckligt, räcker med 1
+                    entity.position.X = (posX + 5 * worldWidth) % worldWidth; // 5 = godtyckligt, räcker med 1
                 }
                 float posY = entity.position.Y;
-                if (posY > gameWindowHeight)
+                if (posY > worldHeight)
                 {
-                    entity.position.Y = posY % gameWindowHeight;
+                    entity.position.Y = posY % worldHeight;
                 }
                 else if (posY < 0)
                 {
-                    entity.position.Y = (posY + 5 * gameWindowHeight) % gameWindowHeight;
+                    entity.position.Y = (posY + 5 * worldHeight) % worldHeight;
                 }
             }
         }

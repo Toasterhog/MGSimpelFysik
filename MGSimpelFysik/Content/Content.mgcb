@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:8 dirt.png
 
+#begin companionCube.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:companionCube.png
+
 #begin dungeon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -90,6 +102,24 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:projectile.png
+
+#begin projectile2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:projectile2.png
+
+#begin shaders/portalGlow.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:shaders/portalGlow.fx
 
 #begin tilemap_32px.png
 /importer:TextureImporter

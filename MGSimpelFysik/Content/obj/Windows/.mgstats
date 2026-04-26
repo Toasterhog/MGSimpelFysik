@@ -1,2 +1,2 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/Ruben/source/repos/MGSimpelFysik/MGSimpelFysik/Content/portalGlow.png","C:/Users/Ruben/source/repos/MGSimpelFysik/MGSimpelFysik/Content/bin/Windows/portalGlow.xnb","TextureProcessor","Texture2DContent",164,341,0,1359214
+"C:/Users/rivne/source/repos/MGSimpelFysik/MGSimpelFysik/Content/shaders/portalGlow.fx","C:/Users/rivne/source/repos/MGSimpelFysik/MGSimpelFysik/Content/bin/Windows/shaders/portalGlow.xnb","EffectProcessor","CompiledEffectContent",750,764,0,2861401

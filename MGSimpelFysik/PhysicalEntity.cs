@@ -24,7 +24,7 @@ namespace MGSimpelFysik
         protected float simulationSpeed = 1f;
         protected PortalHandler portalSys;
 
-        float tileSize = Tilemap.TileSize;
+        public float tileSize = Tilemap.TileSize;
         protected Point[] axisAlignedOffsets = [new Point(1, 0), new Point(0, 1), new Point(-1, 0), new Point(0, -1)];
         protected Point[] diagonalOffsets = [new Point(1, 1), new Point(-1, 1), new Point(-1, -1), new Point(1, -1)];
 
@@ -391,7 +391,10 @@ namespace MGSimpelFysik
 
         protected virtual void ClampVelocity(float delta)
         {
-            velocity = new Vector2(MathF.Min(MathF.Max(velocity.X, -collisionradious / delta), collisionradious / delta), MathF.Min(MathF.Max(velocity.Y, -collisionradious / delta), collisionradious / delta));
+            //velocity = new Vector2(MathF.Min(MathF.Max(velocity.X, -collisionradious / delta), collisionradious / delta), MathF.Min(MathF.Max(velocity.Y, -collisionradious / delta), collisionradious / delta));
+            float maxSpeed = collisionradious / delta;
+            velocity.X = Mathlike.ClampF(velocity.X, -maxSpeed, maxSpeed);
+            velocity.Y = Mathlike.ClampF(velocity.Y, -maxSpeed, maxSpeed);
 
         }
 

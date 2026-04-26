@@ -28,10 +28,13 @@ namespace MGSimpelFysik
         private Texture2D tileSetTexture;
         private Texture2D dungeonTexture;
         private Texture2D goombaTexture;
+        private Texture2D companionCubeTexture;
         private Texture2D goalTexture;
         private Texture2D blueProjectileTexture;
         //private Texture2D yellowProjectileTexture;
         public Texture2D bluePortalFrameTexture;
+
+        public Effect portalGlowShader;
 
 
         private AnimatedSprite goombaAnim;
@@ -60,16 +63,19 @@ namespace MGSimpelFysik
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            tileSetTexture = Content.Load<Texture2D>("tilemap_32px");
+            tileSetTexture = Content.Load<Texture2D>("tilemap_8px");
             dungeonTexture = Content.Load<Texture2D>("dungeon");
             goombaTexture = Content.Load<Texture2D>("goomba");
+            companionCubeTexture = Content.Load<Texture2D>("companionCube");
             goalTexture = Content.Load<Texture2D>("goalblob_8px");
-            blueProjectileTexture = Content.Load<Texture2D>("projectile");
+            blueProjectileTexture = Content.Load<Texture2D>("projectile2");
             //yellowProjectileTexture = Content.Load<Texture2D>("dungeon");
             bluePortalFrameTexture = Content.Load<Texture2D>("portalGlow");
 
             shootSE = Content.Load<SoundEffect>("Menu_Select_01");
             openingPortalSE = Content.Load<SoundEffect>("WarpDrive_00");
+
+            portalGlowShader = Content.Load<Effect>("shaders/portalGlow");
         }
 
         protected override void Initialize()
@@ -79,18 +85,19 @@ namespace MGSimpelFysik
             
             SoundHandler.innitNoises(new SoundEffect[] {shootSE, openingPortalSE} );
             portalSystem = new PortalHandler(this);
-            blueProjectileAnim = new AdvancedSprite(blueProjectileTexture, new Point(12,7));
-            yellowProjectileAnim = new AdvancedSprite(blueProjectileTexture, new Point(12, 7));
+            blueProjectileAnim = new AdvancedSprite(blueProjectileTexture, new Point(16,5));
+            yellowProjectileAnim = new AdvancedSprite(blueProjectileTexture, new Point(16, 5));
             blueProjectileAnim.Delay = 50;
-            yellowProjectileAnim.Delay = 140;
+            yellowProjectileAnim.Delay = 35;
             goalAnim = new AnimatedSprite(goalTexture, 8);
             goalAnim.Delay = 120;
             tilemap = new Tilemap(tileSetTexture); //had param 8
             tilemap.goalsprite = goalAnim;
             goombaAnim = new AnimatedSprite(goombaTexture, 16);
-            goomba = new PhysicalEntity(portalSystem, tilemap, null, goombaAnim, 16, position: new Vector2(300,300), scale: 4);
-            goomba.origin = new Vector2(8, 12);
-            physicsWorld = new Physics(windowWidth, windowHeight, tilemap);
+            //goomba = new PhysicalEntity(portalSystem, tilemap, null, goombaAnim, 16, position: new Vector2(300,300), scale: 4);
+            goomba = new PhysicalEntity(portalSystem, tilemap, companionCubeTexture, null,  25f, position: new Vector2(300,300), scale: 50f/134f);
+            //goomba.origin = new Vector2(8, 12);
+            physicsWorld = new Physics(windowWidth, windowHeight);
             physicsWorld.entities.Add(goomba);
             levelBuilder = new LevelBuilder(tilemap, dungeonTexture);
             
@@ -125,7 +132,7 @@ namespace MGSimpelFysik
 
             goomba.Draw(_spriteBatch);
             tilemap.Draw(_spriteBatch);
-            portalSystem.Draw(_spriteBatch);
+            
 
             foreach (IDrawable visual in visuals)
             {
@@ -133,6 +140,12 @@ namespace MGSimpelFysik
             }
 
             _spriteBatch.End();
+
+            portalGlowShader.Parameters["time"].SetValue((float)gameTime.TotalGameTime.TotalSeconds);
+            _spriteBatch.Begin(effect: portalGlowShader, blendState: BlendState.AlphaBlend, samplerState: SamplerState.PointClamp);
+            portalSystem.Draw(_spriteBatch);
+            _spriteBatch.End();
+
             base.Draw(gameTime);
         }
 
@@ -195,27 +208,37 @@ namespace MGSimpelFysik
             //    portalSystem.SpawnProjectile(false, goomba.position, dir);
             //    Debug.WriteLine("yellow proj spawned");
             //}
-            if (ks.IsKeyDown(Keys.U) && prevks.IsKeyUp(Keys.U)) { ChangeWindowSize(); }
+            if (ks.IsKeyDown(Keys.U) && prevks.IsKeyUp(Keys.U)) {
+                int ts = 64;
+                Point tileMapSize = tilemap.GetTileMapSize();
+                ChangeTileSize(ts);
+                ChangeWindowSize(tileMapSize.X * ts, tileMapSize.Y * ts);
+            }
 
             prevks = ks;
             prevms = ms;
         }
 
-        public void ChangeWindowSize(int w = 1500, int h = 1500)
+        public void ChangeWindowSize(int w , int h)
         {
-            w = 80 * 20;
-            h = 80 * 12;
             w = Mathlike.ClampI(w, 100, 2000);
             h = Mathlike.ClampI(h, 100, 2000);
             _graphics.PreferredBackBufferWidth = w;
             _graphics.PreferredBackBufferHeight = h;
             _graphics.ApplyChanges();
+            
+        }
+        public void ChangeTileSize(int ts)
+        {
+            Tilemap.TileSize = ts;
             if (physicsWorld != null)
             {
-                physicsWorld.gameWindowWidth = w;
-                physicsWorld.gameWindowHeight = h;
+                foreach (PhysicalEntity pe in physicsWorld.entities) { pe.tileSize = ts; }
+
+                Point tileMapSize = tilemap.GetTileMapSize();
+                physicsWorld.worldWidth = ts * tileMapSize.X;
+                physicsWorld.worldHeight = ts * tileMapSize.Y;
             }
-            //Tilemap.TileSize = 80;
         }
 
     }

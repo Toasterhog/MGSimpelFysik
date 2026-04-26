@@ -16,12 +16,24 @@ namespace MGSimpelFysik
             if (v > max) return max;
             return v;
         }
+        /// <summary>
+        /// circular clamp, sets max magnitude
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="maxl"></param>
+        /// <returns></returns>
         public static Vector2 ClampV(Vector2 v, float maxl)
         {
             float vl = v.Length();
             if (vl > maxl) return v * maxl / vl;
             return v;
         }
+        /// <summary>
+        /// orthogonal clamp, piecewise between 0 and u (inclusive, inclusive)
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="u"></param>
+        /// <returns></returns>
         public static Point ClampP(Point v, Point u)
         {
             int x = ClampI(v.X, 0, u.X);
@@ -51,11 +63,11 @@ namespace MGSimpelFysik
         }
         public static float angleV(Vector2 v)
         {
-            return MathF.Atan2(v.X, v.Y);
+            return MathF.Atan2(v.Y, v.X);
         }
         public static float angleP(Point v)
         {
-            return MathF.Atan2(v.X, v.Y);
+            return MathF.Atan2(v.Y, v.X);
         }
         public static float ProjectionFactor(Vector2 v, Vector2 dir)
         {
