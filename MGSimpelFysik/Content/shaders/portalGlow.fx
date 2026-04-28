@@ -26,7 +26,7 @@ struct VertexShaderOutput
 float4 MainPS(VertexShaderOutput input) : COLOR
 {
     float2 uv = input.TextureCoordinates;
-    uv = (int2)(uv * 8) / 8.0; //or floor
+    //uv = (int2)(uv * 8) / 8.0; //or floor <--pixelate
     float wave = 0.5 + 0.3 * sin(time * 1.7 + uv.y * 14 + sin(uv.x * 3.1415));
     //float edge = uv.y > 0.9 ? 1 : 0;
     //float edge = uv.y * uv.y * uv.y;

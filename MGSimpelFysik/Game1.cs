@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -16,7 +17,7 @@ namespace MGSimpelFysik
 
         private int windowWidth = 1000;
         private int windowHeight = 600;
-        
+
         private KeyboardState prevks;
         private MouseState prevms;
         private Point blueAimStart;
@@ -33,9 +34,9 @@ namespace MGSimpelFysik
         private Texture2D blueProjectileTexture;
         //private Texture2D yellowProjectileTexture;
         public Texture2D bluePortalFrameTexture;
+        public Texture2D lightTileSetTexture;
 
         public Effect portalGlowShader;
-
 
         private AnimatedSprite goombaAnim;
         private AnimatedSprite goalAnim;
@@ -71,6 +72,7 @@ namespace MGSimpelFysik
             blueProjectileTexture = Content.Load<Texture2D>("projectile2");
             //yellowProjectileTexture = Content.Load<Texture2D>("dungeon");
             bluePortalFrameTexture = Content.Load<Texture2D>("portalGlow");
+            lightTileSetTexture = Content.Load<Texture2D>("lightTileSet");
 
             shootSE = Content.Load<SoundEffect>("Menu_Select_01");
             openingPortalSE = Content.Load<SoundEffect>("WarpDrive_00");
@@ -80,12 +82,12 @@ namespace MGSimpelFysik
 
         protected override void Initialize()
         {
-            
+
             base.Initialize(); //base.init calls LoadContent
-            
-            SoundHandler.innitNoises(new SoundEffect[] {shootSE, openingPortalSE} );
+
+            SoundHandler.innitNoises(new SoundEffect[] { shootSE, openingPortalSE });
             portalSystem = new PortalHandler(this);
-            blueProjectileAnim = new AdvancedSprite(blueProjectileTexture, new Point(16,5));
+            blueProjectileAnim = new AdvancedSprite(blueProjectileTexture, new Point(16, 5));
             yellowProjectileAnim = new AdvancedSprite(blueProjectileTexture, new Point(16, 5));
             blueProjectileAnim.Delay = 50;
             yellowProjectileAnim.Delay = 35;
@@ -93,19 +95,20 @@ namespace MGSimpelFysik
             goalAnim.Delay = 120;
             tilemap = new Tilemap(tileSetTexture); //had param 8
             tilemap.goalsprite = goalAnim;
+            tilemap.lightLayer = lightTileSetTexture; //new
             goombaAnim = new AnimatedSprite(goombaTexture, 16);
             //goomba = new PhysicalEntity(portalSystem, tilemap, null, goombaAnim, 16, position: new Vector2(300,300), scale: 4);
-            goomba = new PhysicalEntity(portalSystem, tilemap, companionCubeTexture, null,  25f, position: new Vector2(300,300), scale: 50f/134f);
+            goomba = new PhysicalEntity(portalSystem, tilemap, companionCubeTexture, null, 25f, position: new Vector2(300, 300), scale: 50f / 134f);
             //goomba.origin = new Vector2(8, 12);
             physicsWorld = new Physics(windowWidth, windowHeight);
             physicsWorld.entities.Add(goomba);
             levelBuilder = new LevelBuilder(tilemap, dungeonTexture);
-            
+
 
             levelBuilder.SetTilesFromImage(GraphicsDevice, tilemap);
         }
 
-        
+
 
         protected override void Update(GameTime gameTime)
         {
@@ -113,7 +116,7 @@ namespace MGSimpelFysik
                 Exit();
 
             InputUppdate();
-            
+
             goombaAnim.Update(gameTime);
             goalAnim.Update(gameTime);
             blueProjectileAnim.Update(gameTime);
@@ -127,22 +130,20 @@ namespace MGSimpelFysik
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.FromNonPremultiplied(16,16,16,255));
+            GraphicsDevice.Clear(Color.FromNonPremultiplied(16, 16, 16, 255));
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
             goomba.Draw(_spriteBatch);
-            tilemap.Draw(_spriteBatch);
-            
-
             foreach (IDrawable visual in visuals)
             {
                 visual.Draw(_spriteBatch);
             }
+            tilemap.Draw(_spriteBatch);
 
             _spriteBatch.End();
 
             portalGlowShader.Parameters["time"].SetValue((float)gameTime.TotalGameTime.TotalSeconds);
-            _spriteBatch.Begin(effect: portalGlowShader, blendState: BlendState.AlphaBlend, samplerState: SamplerState.PointClamp);
+            _spriteBatch.Begin(effect: portalGlowShader, blendState: BlendState.AlphaBlend); //, samplerState: SamplerState.PointClamp);
             portalSystem.Draw(_spriteBatch);
             _spriteBatch.End();
 
@@ -150,11 +151,12 @@ namespace MGSimpelFysik
         }
 
 
+
         private void InputUppdate()
         {
             KeyboardState ks = Keyboard.GetState();
             MouseState ms = Mouse.GetState();
-            
+
             if (ks.IsKeyDown(Keys.Space)) //move goomba cheat
             {
                 if (ms.LeftButton == ButtonState.Pressed)
@@ -178,7 +180,7 @@ namespace MGSimpelFysik
                     Vector2 dir = new Vector2(ms.Position.X, ms.Position.Y) - goomba.position;
                     portalSystem.SpawnProjectile(true, goomba.position, dir);
                     //Debug.WriteLine("blue proj spawned");
-                    
+
                 }
 
                 if (prevms.RightButton == ButtonState.Pressed && ms.RightButton == ButtonState.Released)
@@ -186,7 +188,7 @@ namespace MGSimpelFysik
                     Vector2 dir = new Vector2(ms.Position.X, ms.Position.Y) - goomba.position;
                     portalSystem.SpawnProjectile(false, goomba.position, dir);
                     //Debug.WriteLine("yellow proj spawned");
-                    
+
                 }
             }
 
@@ -219,14 +221,14 @@ namespace MGSimpelFysik
             prevms = ms;
         }
 
-        public void ChangeWindowSize(int w , int h)
+        public void ChangeWindowSize(int w, int h)
         {
             w = Mathlike.ClampI(w, 100, 2000);
             h = Mathlike.ClampI(h, 100, 2000);
             _graphics.PreferredBackBufferWidth = w;
             _graphics.PreferredBackBufferHeight = h;
             _graphics.ApplyChanges();
-            
+
         }
         public void ChangeTileSize(int ts)
         {
@@ -239,6 +241,94 @@ namespace MGSimpelFysik
                 physicsWorld.worldWidth = ts * tileMapSize.X;
                 physicsWorld.worldHeight = ts * tileMapSize.Y;
             }
+        }
+
+        public void SaveTextureToFile(Texture2D texture, string fileName)
+        {
+            try
+            {
+                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string gameFolder = Path.Combine(appDataPath, "MonoGameTileMapTest");
+
+                // Ensure the directory exists
+                if (!Directory.Exists(gameFolder))
+                {
+                    return;
+                    //Directory.CreateDirectory(gameFolder);
+                }
+
+                string fullPath = Path.Combine(gameFolder, fileName + ".png");
+
+                using (Stream stream = File.Create(fullPath))
+                {
+                    texture.SaveAsPng(stream, texture.Width, texture.Height);
+                }
+
+                Debug.WriteLine("Texture saved to: " + fullPath);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Error saving texture: " + e.Message);
+            }
+        }
+        private Texture2D CreateLightTileSet()
+        {
+            int ts = 32;
+            int gridWidth = 16;
+            int gridHeight = 16;
+
+            int texWidth = ts * gridWidth;
+            int texHeight = ts * gridHeight;
+
+            Texture2D mytex = new Texture2D(GraphicsDevice, texWidth, texHeight);
+            Color[] colData = new Color[texWidth * texHeight];
+
+            for (int tile = 0; tile < 256; tile++)
+            {
+                bool[] hasaa = new bool[4]; //axis aligned
+                for (int i = 0; i < 4; i++) hasaa[i] = (tile & (1 << 2 * i)) != 0;
+                bool[] hasdiag = new bool[4]; //diagonal
+                for (int i = 0; i < 4; i++) hasdiag[i] = (tile & (1 << (1 + 2 * i))) != 0;
+
+                int tileX = (tile % gridWidth) * ts;
+                int tileY = (tile / gridWidth) * ts;
+
+                for (int y = 0; y < ts; y++)
+                {
+                    for (int x = 0; x < ts; x++)
+                    {
+                        float nx = (float)x / (ts - 1);
+                        float ny = (float)y / (ts - 1);
+                        float[] ndir = { 1 - ny, nx, ny, 1 - nx };
+                        float light = 0f;
+                        float liaghtDia = 0;
+
+                        for (int i = 0; i < 4; i++)
+                        {
+                            if (!hasaa[i]) light += ndir[i];
+                        }
+                        for (int i = 0; i < 4; i++)
+                        {
+                            if (!hasdiag[i]) liaghtDia += ndir[i] * ndir[(i + 1) % 4];
+                        }
+                        light = MathHelper.Clamp(light, 0f, 1f);
+                        light = Math.Max(light, liaghtDia);
+
+                        //light = MathHelper.Clamp(light, 0f, 1f);
+
+
+                        int pixelX = tileX + x;
+                        int pixelY = tileY + y;
+                        int index = (pixelY * texWidth) + pixelX;
+
+                        colData[index] = Color.Black * (1 - light);
+                    }
+                }
+            }
+
+            mytex.SetData(colData);
+            SaveTextureToFile(mytex, "lightTileSet");
+            return mytex;
         }
 
     }

@@ -3,19 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\rivne\\source\\repos\\MGSimpelFysik\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\rivne\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\content\\shaders\\portalglow.fx||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\content\\shaders\\portalglow.fx||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\rivne\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\rivne\\.nuget\\packages\\monogame.content.builder.task\\3.8.4.1\\build\\MonoGame.Content.Builder.Task.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\rivne\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\tilemap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\tilemap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\rivne\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\levelhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\levelhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\rivne\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\content\\shaders\\portalglow.fx||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\content\\shaders\\portalglow.fx||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\rivne\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,10 +43,6 @@
       "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\portalhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\rivne\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\levelhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\levelhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|c:\\users\\rivne\\source\\repos\\mgsimpelfysik\\mgsimpelfysik\\soundhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{21DC5ED2-F8CD-4326-96F0-6E87D2E089FD}|MGSimpelFysik\\MGSimpelFysik.csproj|solutionrelative:mgsimpelfysik\\soundhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -69,7 +66,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -77,32 +74,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "portalGlow.fx",
               "DocumentMoniker": "C:\\Users\\rivne\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\Content\\shaders\\portalGlow.fx",
               "RelativeDocumentMoniker": "MGSimpelFysik\\Content\\shaders\\portalGlow.fx",
               "ToolTip": "C:\\Users\\rivne\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\Content\\shaders\\portalGlow.fx",
               "RelativeToolTip": "MGSimpelFysik\\Content\\shaders\\portalGlow.fx",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAAB8AAAAmAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAABwAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2026-04-26T00:35:32.965Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MonoGame.Content.Builder.Task.targets",
-              "DocumentMoniker": "C:\\Users\\rivne\\.nuget\\packages\\monogame.content.builder.task\\3.8.4.1\\build\\MonoGame.Content.Builder.Task.targets",
-              "RelativeDocumentMoniker": "..\\..\\..\\.nuget\\packages\\monogame.content.builder.task\\3.8.4.1\\build\\MonoGame.Content.Builder.Task.targets",
-              "ToolTip": "C:\\Users\\rivne\\.nuget\\packages\\monogame.content.builder.task\\3.8.4.1\\build\\MonoGame.Content.Builder.Task.targets",
-              "RelativeToolTip": "..\\..\\..\\.nuget\\packages\\monogame.content.builder.task\\3.8.4.1\\build\\MonoGame.Content.Builder.Task.targets",
-              "ViewState": "AgIAAJQAAAAAAAAAAAAAwKsAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2026-04-26T00:31:15.733Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 10,
               "Title": "SoundHandler.cs",
               "DocumentMoniker": "C:\\Users\\rivne\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\SoundHandler.cs",
               "RelativeDocumentMoniker": "MGSimpelFysik\\SoundHandler.cs",
@@ -114,7 +99,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 11,
               "Title": "Portal.cs",
               "DocumentMoniker": "C:\\Users\\rivne\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\Portal.cs",
               "RelativeDocumentMoniker": "MGSimpelFysik\\Portal.cs",
@@ -150,28 +135,29 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Game1.cs",
               "DocumentMoniker": "C:\\Users\\rivne\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\Game1.cs",
               "RelativeDocumentMoniker": "MGSimpelFysik\\Game1.cs",
               "ToolTip": "C:\\Users\\rivne\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\Game1.cs",
               "RelativeToolTip": "MGSimpelFysik\\Game1.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAAAowEEAAAA/AAAAAAAAAA==",
+              "ViewState": "AgIAAJUAAAAAAAAAAAAqwEIAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-03T21:04:24.333Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Tilemap.cs",
               "DocumentMoniker": "C:\\Users\\rivne\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\Tilemap.cs",
               "RelativeDocumentMoniker": "MGSimpelFysik\\Tilemap.cs",
               "ToolTip": "C:\\Users\\rivne\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\Tilemap.cs",
               "RelativeToolTip": "MGSimpelFysik\\Tilemap.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAcwHAAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-04T22:13:38.887Z"
+              "WhenOpened": "2026-04-04T22:13:38.887Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -199,15 +185,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 2,
               "Title": "LevelHandler.cs",
               "DocumentMoniker": "C:\\Users\\rivne\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\LevelHandler.cs",
               "RelativeDocumentMoniker": "MGSimpelFysik\\LevelHandler.cs",
               "ToolTip": "C:\\Users\\rivne\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\LevelHandler.cs",
               "RelativeToolTip": "MGSimpelFysik\\LevelHandler.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABEAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-04T22:13:49.968Z"
+              "WhenOpened": "2026-04-04T22:13:49.968Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -223,7 +210,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 12,
               "Title": "Projectile.cs",
               "DocumentMoniker": "C:\\Users\\rivne\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\Projectile.cs",
               "RelativeDocumentMoniker": "MGSimpelFysik\\Projectile.cs",
@@ -235,7 +222,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 13,
               "Title": "IDrawable.cs",
               "DocumentMoniker": "C:\\Users\\rivne\\source\\repos\\MGSimpelFysik\\MGSimpelFysik\\IDrawable.cs",
               "RelativeDocumentMoniker": "MGSimpelFysik\\IDrawable.cs",

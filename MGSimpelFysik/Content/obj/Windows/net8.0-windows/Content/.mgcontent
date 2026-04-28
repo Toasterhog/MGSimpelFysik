@@ -9,6 +9,7 @@
     <File>C:/Users/rivne/source/repos/MGSimpelFysik/MGSimpelFysik/Content/dungeon.png</File>
     <File>C:/Users/rivne/source/repos/MGSimpelFysik/MGSimpelFysik/Content/goalblob_8px.png</File>
     <File>C:/Users/rivne/source/repos/MGSimpelFysik/MGSimpelFysik/Content/goomba.png</File>
+    <File>C:/Users/rivne/source/repos/MGSimpelFysik/MGSimpelFysik/Content/lightTileSet.png</File>
     <File>C:/Users/rivne/source/repos/MGSimpelFysik/MGSimpelFysik/Content/Menu_Select_01.wav</File>
     <File>C:/Users/rivne/source/repos/MGSimpelFysik/MGSimpelFysik/Content/portalGlow.png</File>
     <File>C:/Users/rivne/source/repos/MGSimpelFysik/MGSimpelFysik/Content/projectile.png</File>
@@ -19,6 +20,7 @@
     <File>C:/Users/rivne/source/repos/MGSimpelFysik/MGSimpelFysik/Content/WarpDrive_00.wav</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
