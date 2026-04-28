@@ -14,7 +14,7 @@ namespace MGSimpelFysik
     public class PhysicalEntity : Entity
     {
         public Vector2 velocity = Vector2.Zero; // px/s
-        public Vector2 gravity = new Vector2(0, 800f); // 16 tiles per sekund^2 | px/s^2
+        public Vector2 gravity = new Vector2(0, 800f); // 16 tiles per sekund^2 | px/s^2 default 800
         protected float collisionradious = 10;
         protected  Tilemap tilemap;
         protected enum CollisionShapeType { circle, square }; //meh datatyp

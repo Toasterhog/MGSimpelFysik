@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MGSimpelFysik")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+403a9050fac8595e320697de6ce496d2ebef9231")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e1a9c0e99cf282179247bac9f8c62a5f727a0e15")]
 [assembly: System.Reflection.AssemblyProductAttribute("MGSimpelFysik")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MGSimpelFysik")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

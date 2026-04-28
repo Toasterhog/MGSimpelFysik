@@ -14,7 +14,7 @@ namespace MGSimpelFysik
         public int worldHeight = 500;
         public List<PhysicalEntity> pEntitiesToAdd = new List<PhysicalEntity>();
         public List<PhysicalEntity> pEntitiesToRemove = new List<PhysicalEntity>();
-        private float deltaMultiplier = 0.7f;
+        private float deltaMultiplier = 1f;
         public Physics(int worldWidth, int worldHeight)
         {
             this.worldWidth = worldWidth;

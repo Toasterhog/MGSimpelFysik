@@ -115,3 +115,6 @@ C:\Users\rivne\source\repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows
 C:\Users\rivne\source\repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\projectile2.xnb
 C:\Users\rivne\source\repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\companionCube.xnb
 C:\Users\rivne\source\repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\shaders\portalGlow.xnb
+C:\Users\Ruben\Source\Repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\companionCube.xnb
+C:\Users\Ruben\Source\Repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\projectile2.xnb
+C:\Users\Ruben\Source\Repos\MGSimpelFysik\MGSimpelFysik\bin\Debug\net8.0-windows\Content\shaders\portalGlow.xnb
